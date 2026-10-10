@@ -326,6 +326,12 @@
         </p>
       </div>
 
+      <!-- Live Search Bar -->
+      <div class="menu-search-wrap">
+        <svg class="menu-search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="menu-search-input" class="menu-search-input" placeholder="Search waffles, crepes, brownies, gelato, lattes..." />
+      </div>
+
       <!-- Category Filter Tabs (NO EMOJIS) -->
       <div class="menu-category-tabs">
         <button class="tab-btn active" data-category="all">All Delights</button>
@@ -825,6 +831,13 @@
 
               <div class="admin-form-group full-col">
                 <label class="admin-form-label">Occasion or Special Requests</label>
+                <div class="booking-presets-strip">
+                  <button type="button" class="booking-preset-btn" onclick="setBookingOccasion('Birthday Celebration')">Birthday Celebration</button>
+                  <button type="button" class="booking-preset-btn" onclick="setBookingOccasion('Anniversary Dinner')">Anniversary</button>
+                  <button type="button" class="booking-preset-btn" onclick="setBookingOccasion('Romantic Dessert Date')">Romantic Date</button>
+                  <button type="button" class="booking-preset-btn" onclick="setBookingOccasion('Family Gathering')">Family Gathering</button>
+                  <button type="button" class="booking-preset-btn" onclick="setBookingOccasion('VIP Business Meet')">Business Meet</button>
+                </div>
                 <input type="text" id="book-notes" class="admin-form-control" placeholder="e.g. Birthday surprise, high chair needed, anniversary cake" />
               </div>
 
@@ -1000,6 +1013,54 @@
           <div style="display:flex; justify-content:space-between; align-items:center; padding-top:1.2rem; border-top:1px solid var(--border-subtle);">
             <span style="font-family:var(--font-mono); font-size:1.15rem; font-weight:800; color:var(--gold);">From 15,000 GMD</span>
             <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20inquire%20about%20the%20VIP%20Patisserie%20Dessert%20Buffet." target="_blank" rel="noopener" class="btn-primary" style="padding:0.6rem 1.2rem; font-size:0.82rem;">Inquire</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Catering Quote Calculator -->
+      <div class="catering-calculator-wrap">
+        <div class="section-header-center" style="margin-bottom:2rem;">
+          <div class="section-label">Instant Estimate</div>
+          <h3 style="font-family:var(--font-serif); font-size:1.8rem; font-weight:800; color:var(--cream);">
+            Catering <span class="gold-gradient-text">Budget Calculator</span>
+          </h3>
+          <p style="font-size:0.9rem; color:var(--cream-muted);">
+            Select your guest count and preferred station to calculate an instant estimate and request your custom event proposal on WhatsApp.
+          </p>
+        </div>
+
+        <div class="catering-calc-grid">
+          <div class="catering-calc-options">
+            <div>
+              <span class="catering-calc-label">1. Estimated Guest Count</span>
+              <div class="catering-pill-group" id="catering-guests-pills">
+                <button type="button" class="calc-pill-btn" data-guests="25" onclick="setCateringGuests(25)">25 Guests</button>
+                <button type="button" class="calc-pill-btn active" data-guests="50" onclick="setCateringGuests(50)">50 Guests</button>
+                <button type="button" class="calc-pill-btn" data-guests="100" onclick="setCateringGuests(100)">100 Guests</button>
+                <button type="button" class="calc-pill-btn" data-guests="150" onclick="setCateringGuests(150)">150+ Guests VIP</button>
+              </div>
+            </div>
+
+            <div>
+              <span class="catering-calc-label">2. Preferred Experience</span>
+              <div class="catering-pill-group" id="catering-package-pills">
+                <button type="button" class="calc-pill-btn active" data-pkg="fondue" onclick="setCateringPackage('fondue')">Fondue Fountain Bar</button>
+                <button type="button" class="calc-pill-btn" data-pkg="waffles" onclick="setCateringPackage('waffles')">Live Waffle & Crepe Station</button>
+                <button type="button" class="calc-pill-btn" data-pkg="buffet" onclick="setCateringPackage('buffet')">VIP Patisserie Dessert Buffet</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="catering-calc-result-card">
+            <span style="font-size:0.8rem; color:var(--gold-light); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.1em;">Estimated Investment</span>
+            <div class="calc-price-big" id="calc-price-display">9,500 GMD</div>
+            <p id="calc-summary-text" style="font-size:0.85rem; color:var(--cream-muted); margin-bottom:1.5rem;">
+              Fondue Fountain Bar for 50 guests with attendant, Callebaut chocolate, and dippers.
+            </p>
+            <a id="calc-whatsapp-quote-btn" href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20a%20catering%20quote%20for%20the%20Fondue%20Fountain%20Bar%20for%2050%20guests%20(Estimated%3A%209%2C500%20GMD)." target="_blank" rel="noopener" class="btn-primary" style="padding:0.85rem 1.8rem; font-size:0.88rem; width:100%; justify-content:center;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+              <span>Request Quote on WhatsApp</span>
+            </a>
           </div>
         </div>
       </div>
@@ -1476,6 +1537,15 @@
       </div>
     </div>
   </footer>
+
+  <!-- FLOATING WHATSAPP ACTION BUTTON -->
+  <div id="floating-whatsapp" class="floating-whatsapp-wrap">
+    <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20place%20an%20order%20or%20make%20an%20inquiry%20at%20Pipeline." target="_blank" rel="noopener" class="floating-whatsapp-btn" aria-label="Chat and Order on WhatsApp">
+      <div class="whatsapp-pulse"></div>
+      <svg class="whatsapp-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+      <span class="floating-whatsapp-tooltip">Chat on WhatsApp &middot; +220 400 0060</span>
+    </a>
+  </div>
 
   <!-- Leaflet JS for Map -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

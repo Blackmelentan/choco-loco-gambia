@@ -296,16 +296,24 @@ function updateLiveStatus() {
 // 4. DIGITAL MENU RENDERING AND FILTERING
 // ══════════════════════════════════════════════════════════
 
+let menuSearchQuery = '';
+
 function renderMenuGrid() {
   const container = document.getElementById('menu-items-grid');
   if (!container) return;
 
-  const filtered = activeCategory === 'all' 
-    ? menuItems 
-    : menuItems.filter(item => item.category === activeCategory);
+  const query = menuSearchQuery.toLowerCase().trim();
+  const filtered = menuItems.filter(item => {
+    const matchesCat = activeCategory === 'all' || item.category === activeCategory;
+    const matchesQuery = !query || 
+      item.name.toLowerCase().includes(query) || 
+      item.desc.toLowerCase().includes(query) || 
+      item.categoryLabel.toLowerCase().includes(query);
+    return matchesCat && matchesQuery;
+  });
 
   if (filtered.length === 0) {
-    container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--cream-muted);">No items currently in this category.</div>`;
+    container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--cream-muted);">No items matched "${query || activeCategory}". Try searching for waffles, crepes, or brownies.</div>`;
     return;
   }
 
@@ -331,6 +339,7 @@ function renderMenuGrid() {
             </div>
             ${item.inStock ? `
               <a href="${waUrl}" target="_blank" rel="noopener" class="item-order-btn">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
                 <span>WhatsApp Order</span>
               </a>
             ` : `
@@ -353,6 +362,14 @@ function initCategoryTabs() {
       renderMenuGrid();
     });
   });
+
+  const searchInput = document.getElementById('menu-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', e => {
+      menuSearchQuery = e.target.value;
+      renderMenuGrid();
+    });
+  }
 }
 
 // ══════════════════════════════════════════════════════════
@@ -698,18 +715,34 @@ function renderAdminBookings() {
       <td>${b.date} &middot; ${b.time}</td>
       <td>${b.area}</td>
       <td>
-        <span class="admin-badge-status ${b.status === 'Confirmed' ? 'status-confirmed' : b.status === 'Seated' ? 'status-seated' : 'status-pending'}">
+        <button onclick="advanceBookingStatusAdmin(${idx})" class="admin-badge-status ${b.status === 'Confirmed' ? 'status-confirmed' : b.status === 'Seated' ? 'status-seated' : b.status === 'Completed' ? 'status-confirmed' : 'status-pending'}" style="cursor:pointer; border:none;" title="Click to advance status">
           ${b.status}
-        </span>
+        </button>
       </td>
       <td>
-        <a href="https://wa.me/${b.phone}?text=Hello%20${encodeURIComponent(b.guest)}%2C%20your%20table%20reservation%20at%20Choco%20Loco%20Pipeline%20is%20confirmed!" target="_blank" rel="noopener" class="admin-action-btn-sm">
-          WhatsApp
-        </a>
+        <div style="display:flex; gap:0.4rem;">
+          <a href="https://wa.me/${b.phone}?text=Hello%20${encodeURIComponent(b.guest)}%2C%20your%20table%20reservation%20at%20Choco%20Loco%20Pipeline%20is%20confirmed!" target="_blank" rel="noopener" class="admin-action-btn-sm" style="background:#25D366; color:#fff; border-color:#25D366;">
+            WhatsApp
+          </a>
+          <button class="admin-action-btn-sm" onclick="advanceBookingStatusAdmin(${idx})">
+            Next
+          </button>
+        </div>
       </td>
     </tr>
   `).join('');
 }
+
+window.advanceBookingStatusAdmin = function(idx) {
+  const bookings = getStoredBookings();
+  if (bookings[idx]) {
+    const statuses = ['Pending', 'Confirmed', 'Seated', 'Completed'];
+    const currentIdx = statuses.indexOf(bookings[idx].status);
+    bookings[idx].status = statuses[(currentIdx + 1) % statuses.length];
+    localStorage.setItem('choco_loco_bookings', JSON.stringify(bookings));
+    renderAdminBookings();
+  }
+};
 
 function renderAdminOrders() {
   const tbody = document.getElementById('admin-orders-table-body');
@@ -1093,7 +1126,78 @@ function initMobileDrawer() {
 }
 
 // ══════════════════════════════════════════════════════════
-// 12. INITIALIZATION LIFECYCLE
+// 12. CATERING CALCULATOR & BOOKING OCCASION HELPERS
+// ══════════════════════════════════════════════════════════
+
+let cateringGuests = 50;
+let cateringPackage = 'fondue';
+
+const cateringPackages = {
+  fondue: {
+    name: 'Fondue Fountain Bar',
+    perGuestPrice: 190,
+    desc: 'Heated multi-tier Belgian Callebaut fountain with fresh strawberries, marshmallows, and dippers.'
+  },
+  waffles: {
+    name: 'Live Waffle & Crepe Station',
+    perGuestPrice: 250,
+    desc: 'On-site dessert chef baking piping-hot bubble waffles, French crepes, and homemade gelato scoops.'
+  },
+  buffet: {
+    name: 'VIP Patisserie Dessert Buffet',
+    perGuestPrice: 300,
+    desc: 'Platters of Brownies to Die For, mini cheesecakes, praline boxes, and specialty coffee.'
+  }
+};
+
+window.setCateringGuests = function(guests) {
+  cateringGuests = guests;
+  document.querySelectorAll('#catering-guests-pills .calc-pill-btn').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.guests, 10) === guests);
+  });
+  updateCateringQuote();
+};
+
+window.setCateringPackage = function(pkgKey) {
+  cateringPackage = pkgKey;
+  document.querySelectorAll('#catering-package-pills .calc-pill-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pkg === pkgKey);
+  });
+  updateCateringQuote();
+};
+
+function updateCateringQuote() {
+  const pkg = cateringPackages[cateringPackage];
+  if (!pkg) return;
+
+  const total = Math.round(cateringGuests * pkg.perGuestPrice);
+  const priceDisplay = document.getElementById('calc-price-display');
+  const summaryDisplay = document.getElementById('calc-summary-text');
+  const quoteBtn = document.getElementById('calc-whatsapp-quote-btn');
+
+  if (priceDisplay) priceDisplay.textContent = `${total.toLocaleString()} GMD`;
+  if (summaryDisplay) {
+    summaryDisplay.textContent = `${pkg.name} for ${cateringGuests} guests (${pkg.perGuestPrice} GMD/guest). ${pkg.desc}`;
+  }
+  if (quoteBtn) {
+    const text = encodeURIComponent(`Hello Choco Loco, I would like to request an official catering proposal for the ${pkg.name} for ${cateringGuests} guests. Estimated budget: ${total.toLocaleString()} GMD.`);
+    quoteBtn.href = `https://wa.me/${siteConfig.whatsappNumber}?text=${text}`;
+  }
+}
+
+window.setBookingOccasion = function(occ) {
+  const input = document.getElementById('book-notes');
+  if (input) {
+    input.value = occ;
+    input.focus();
+  }
+  document.querySelectorAll('.booking-preset-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.includes(occ));
+  });
+};
+
+// ══════════════════════════════════════════════════════════
+// 13. INITIALIZATION LIFECYCLE
 // ══════════════════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1104,6 +1208,15 @@ document.addEventListener('DOMContentLoaded', () => {
   initCategoryTabs();
   initStudioInteractions();
   initTableSelector();
+  updateCateringQuote();
+
+  // Set booking date min to today
+  const bookDate = document.getElementById('book-date');
+  if (bookDate) {
+    const today = new Date().toISOString().split('T')[0];
+    bookDate.min = today;
+    if (!bookDate.value) bookDate.value = today;
+  }
 
   // SPA router must run before map init (map only inits when location page is active)
   initSPARouter();
@@ -1122,4 +1235,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 
