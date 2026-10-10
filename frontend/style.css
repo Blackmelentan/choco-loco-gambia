@@ -241,9 +241,9 @@ body {
 
 /* ══════ TOP ANNOUNCEMENT BAR ══════ */
 #announcement-bar {
-  background: linear-gradient(90deg, #3A1B0E 0%, #522714 50%, #3A1B0E 100%);
-  border-bottom: 1px solid rgba(245, 176, 65, 0.3);
-  padding: 0.55rem 1rem;
+  background: linear-gradient(90deg, #2a1208 0%, #3d1c0e 40%, #4a2210 50%, #3d1c0e 60%, #2a1208 100%);
+  border-bottom: 1px solid rgba(245, 176, 65, 0.25);
+  padding: 0.5rem 1.25rem;
   font-size: 0.82rem;
   color: var(--cream);
   display: flex;
@@ -251,7 +251,8 @@ body {
   justify-content: space-between;
   position: relative;
   z-index: 1001;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  gap: 0.75rem;
 }
 .announcement-inner {
   display: flex;
@@ -357,17 +358,70 @@ body {
   gap: 0.75rem;
 }
 
-/* Mobile Nav Toggle */
+/* Mobile Nav Toggle - always proper size, hidden on desktop via responsive */
 .mobile-nav-toggle {
   display: none;
-  background: rgba(245, 176, 65, 0.12);
-  border: 1px solid var(--border-subtle);
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(245, 176, 65, 0.1);
+  border: 1px solid rgba(245, 176, 65, 0.25);
   color: var(--gold);
-  padding: 0.55rem 0.9rem;
-  border-radius: var(--radius-sm);
-  font-size: 1.3rem;
+  border-radius: 10px;
+  font-size: 1.25rem;
   cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
 }
+.mobile-nav-toggle:hover {
+  background: rgba(245, 176, 65, 0.2);
+  border-color: var(--gold);
+}
+
+/* WhatsApp Nav Button - premium green */
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  white-space: nowrap;
+}
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+  background: linear-gradient(135deg, #2de070, #15a085);
+}
+
+/* Nav active link — bottom bar indicator */
+.nav-links a.active {
+  color: var(--gold-light) !important;
+  background: rgba(245, 176, 65, 0.14) !important;
+  position: relative;
+}
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+
 
 /* ══════ HERO SECTION ══════ */
 #hero {

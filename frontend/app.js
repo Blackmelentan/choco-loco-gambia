@@ -1068,14 +1068,23 @@ function closeDrawer() {
   document.body.style.overflow = '';
 }
 
+function toggleDrawer() {
+  const drawer = document.getElementById('mobile-drawer');
+  if (drawer && drawer.classList.contains('open')) {
+    closeDrawer();
+  } else {
+    openDrawer();
+  }
+}
+
 function initMobileDrawer() {
   const btn     = document.getElementById('mobile-menu-btn');
   const closeBtn = document.getElementById('drawer-close-btn');
   const overlay = document.getElementById('mobile-drawer-overlay');
 
-  if (btn)     btn.addEventListener('click', openDrawer);
+  if (btn)      btn.addEventListener('click', toggleDrawer);
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-  if (overlay) overlay.addEventListener('click', closeDrawer);
+  if (overlay)  overlay.addEventListener('click', closeDrawer);
 
   // Close on ESC
   document.addEventListener('keydown', e => {
