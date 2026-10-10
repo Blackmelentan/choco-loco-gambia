@@ -27,8 +27,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
   <!-- Custom Design System -->
-  <script type="module" crossorigin src="./assets/index-sD2qNpSg.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DZJg1EL9.css">
+  <script type="module" crossorigin src="./assets/index-DhyzhY0U.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CMWSPBPP.css">
 </head>
 <body>
 
@@ -61,19 +61,20 @@
   <nav id="navbar">
     <div class="container nav-inner">
       <a href="#hero" class="nav-brand">
-        <!-- Real Official Dripping Logo -->
-        <img src="./assets/real_choco_loco_logo.png" alt="Choco Loco Patisserie | Café | Lounge" class="nav-brand-logo" />
+        <!-- Real Official Dripping Logo (Luminous 24K Gold Amber Edition) -->
+        <img src="./assets/real_choco_loco_logo_gold.png" alt="Choco Loco Patisserie | Café | Lounge" class="nav-brand-logo" />
       </a>
 
       <ul class="nav-links">
         <li><a href="#hero" class="active">Home</a></li>
-        <li><a href="#about">Our Story</a></li>
-        <li><a href="#menu">Digital Menu</a></li>
-        <li><a href="#custom-studio">Build Your Own</a></li>
-        <li><a href="#retail-products">Boutique Products</a></li>
-        <li><a href="#gallery">Atmosphere</a></li>
-        <li><a href="#table-qr">Table QR</a></li>
-        <li><a href="#location">Find Us</a></li>
+        <li><a href="#about">Story</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#custom-studio">Studio</a></li>
+        <li><a href="#retail-products">Boutique</a></li>
+        <li><a href="#gallery">Lounge</a></li>
+        <li><a href="#bookings">Bookings</a></li>
+        <li><a href="#catering">Catering</a></li>
+        <li><a href="#location">Location</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -681,7 +682,7 @@
 
         <div class="qr-render-side">
           <div class="qr-preview-box">
-            <img src="./assets/real_choco_loco_logo.png" alt="Choco Loco Real Logo" class="qr-header-brand-img" />
+            <img src="./assets/real_choco_loco_logo_gold.png" alt="Choco Loco Real Logo" class="qr-header-brand-img" />
             <div class="qr-header-sub">Patisserie &middot; Café &middot; Lounge</div>
             <div class="qr-canvas-holder">
               <canvas id="qr-table-canvas"></canvas>
@@ -693,6 +694,260 @@
               <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
               <span id="qr-table-number-display">Table 1</span>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKINGS AND TABLE RESERVATIONS SECTION -->
+  <section id="bookings">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-label">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+          Table Reservations
+        </div>
+        <h2 class="section-title">
+          Reserve Your <span class="gold-gradient-text">Lounge Table</span>
+        </h2>
+        <p class="section-sub">
+          Guarantee your favorite booth or outdoor terrace seating at Pipeline Mosque Junction for birthdays, romantic evenings, or dessert dates.
+        </p>
+      </div>
+
+      <div class="booking-card">
+        <div>
+          <h3 style="font-family:var(--font-serif); font-size:1.6rem; font-weight:900; color:var(--cream); margin-bottom:0.5rem;">
+            Book Your Visit
+          </h3>
+          <p style="font-size:0.88rem; color:var(--cream-muted); margin-bottom:1.8rem;">
+            Fill in your preferred date and time. Reservations are confirmed instantly via WhatsApp with our team.
+          </p>
+
+          <form id="booking-form" onsubmit="handleBookingSubmit(event)">
+            <div class="booking-form-grid">
+              <div class="admin-form-group">
+                <label class="admin-form-label">Full Name</label>
+                <input type="text" id="book-name" class="admin-form-control" placeholder="e.g. Fatou Sowe" required />
+              </div>
+
+              <div class="admin-form-group">
+                <label class="admin-form-label">WhatsApp Contact (+220)</label>
+                <input type="tel" id="book-phone" class="admin-form-control" placeholder="e.g. 7123456 or 4000060" required />
+              </div>
+
+              <div class="admin-form-group">
+                <label class="admin-form-label">Party Size</label>
+                <select id="book-guests" class="admin-form-control">
+                  <option value="2 Guests">2 Guests (Table for Two)</option>
+                  <option value="1 Guest">1 Guest (Solo Indulgence)</option>
+                  <option value="4 Guests">4 Guests (Lounge Table)</option>
+                  <option value="6 Guests">6 Guests (Group Celebration)</option>
+                  <option value="8+ Guests VIP">8+ Guests (VIP Private Lounge Area)</option>
+                </select>
+              </div>
+
+              <div class="admin-form-group">
+                <label class="admin-form-label">Preferred Date</label>
+                <input type="date" id="book-date" class="admin-form-control" required />
+              </div>
+
+              <div class="admin-form-group">
+                <label class="admin-form-label">Preferred Time Slot</label>
+                <select id="book-time" class="admin-form-control">
+                  <option value="11:00 AM">11:00 AM (Morning Pastry & Latte)</option>
+                  <option value="1:00 PM">1:00 PM (Afternoon Crepes & Gelato)</option>
+                  <option value="4:00 PM">4:00 PM (Tea & Waffle Hour)</option>
+                  <option value="7:00 PM">7:00 PM (Evening Lounge Atmosphere)</option>
+                  <option value="9:00 PM">9:00 PM (Late Night Chocolate Dessert)</option>
+                  <option value="10:15 PM">10:15 PM (Final Seating)</option>
+                </select>
+              </div>
+
+              <div class="admin-form-group">
+                <label class="admin-form-label">Seating Preference</label>
+                <select id="book-area" class="admin-form-control">
+                  <option value="Indoor Ambient Lounge">Indoor Ambient Lounge</option>
+                  <option value="Outdoor Terrace Patio">Outdoor Terrace Patio</option>
+                  <option value="VIP Private Booth">VIP Private Booth</option>
+                </select>
+              </div>
+
+              <div class="admin-form-group full-col">
+                <label class="admin-form-label">Occasion or Special Requests</label>
+                <input type="text" id="book-notes" class="admin-form-control" placeholder="e.g. Birthday surprise, high chair needed, anniversary cake" />
+              </div>
+
+              <div class="full-col" style="margin-top:0.5rem;">
+                <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:1.1rem;">
+                  <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+                  <span>Reserve Table via WhatsApp</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div style="background:rgba(26,12,6,0.6); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:2.2rem; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <h4 style="font-family:var(--font-serif); font-size:1.3rem; font-weight:800; color:var(--gold-light); margin-bottom:1.4rem;">
+              Choco Loco Hospitality
+            </h4>
+
+            <div class="booking-perk-item">
+              <div class="booking-perk-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700; color:var(--cream); font-size:0.95rem;">Reserved Table Guarantee</div>
+                <div style="font-size:0.82rem; color:var(--cream-muted);">Your chosen table is held for 20 minutes with personalized table card.</div>
+              </div>
+            </div>
+
+            <div class="booking-perk-item">
+              <div class="booking-perk-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700; color:var(--cream); font-size:0.95rem;">Complimentary Welcome Chocolate</div>
+                <div style="font-size:0.82rem; color:var(--cream-muted);">Savor a warm Belgian Callebaut tasting bite upon seating.</div>
+              </div>
+            </div>
+
+            <div class="booking-perk-item">
+              <div class="booking-perk-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700; color:var(--cream); font-size:0.95rem;">Wednesday Closed Policy</div>
+                <div style="font-size:0.82rem; color:var(--cream-muted);">Our team rests on Wednesdays to prepare fresh batches. Bookings available Thu to Tue.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding-top:1.5rem; border-top:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:0.82rem; color:var(--cream-muted);">Direct Desk Phone:</span>
+            <a href="tel:+2204000060" style="color:var(--gold-light); font-weight:800; text-decoration:none; font-family:var(--font-mono);">+220 400 0060</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATERING AND VIP EVENTS SECTION -->
+  <section id="catering">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-label">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M18 4H6v2l6 3.5L18 6V4zm0 4.5l-6 3.5-6-3.5V18h12V8.5z"/></svg>
+          VIP & Events
+        </div>
+        <h2 class="section-title">
+          Artisan Chocolate <span class="gold-gradient-text">Catering & VIP</span>
+        </h2>
+        <p class="section-sub">
+          Elevate your wedding reception, corporate gala, or private lounge party with live Belgian chocolate stations and bespoke patisserie setups.
+        </p>
+      </div>
+
+      <div class="catering-cards-grid">
+        <!-- Package 1 -->
+        <div class="catering-card">
+          <span class="catering-badge">Live Experience</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.35rem; font-weight:800; color:var(--cream); margin-bottom:0.6rem;">
+            The Fondue Fountain Bar
+          </h3>
+          <p style="font-size:0.88rem; color:var(--cream-muted); line-height:1.6;">
+            A multi-tiered heated Belgian Callebaut chocolate fountain station with fresh fruits, marshmallows, and pastries.
+          </p>
+          <ul class="catering-features-list">
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Pure Milk & Dark 70% Callebaut</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Fresh Strawberries, Marshmallows & Wafers</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Dedicated Uniformed Choco Loco Attendant</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Ideal for 40 to 150 Guests</span>
+            </li>
+          </ul>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:1.2rem; border-top:1px solid var(--border-subtle);">
+            <span style="font-family:var(--font-mono); font-size:1.15rem; font-weight:800; color:var(--gold);">Custom Quote</span>
+            <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20inquire%20about%20The%20Fondue%20Fountain%20Catering%20Package." target="_blank" rel="noopener" class="btn-primary" style="padding:0.6rem 1.2rem; font-size:0.82rem;">Inquire</a>
+          </div>
+        </div>
+
+        <!-- Package 2 -->
+        <div class="catering-card">
+          <span class="catering-badge">Live Chef Station</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.35rem; font-weight:800; color:var(--cream); margin-bottom:0.6rem;">
+            Live Waffle & Crepe Station
+          </h3>
+          <p style="font-size:0.88rem; color:var(--cream-muted); line-height:1.6;">
+            On-site dessert chef baking piping-hot bubble waffles and crepes with 5 artisanal glazes and gelato scoops.
+          </p>
+          <ul class="catering-features-list">
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Piping Hot Belgian Bubble Waffles</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Lotus Biscoff, Pistachio & Milk Drizzles</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Homemade Artisan Gelato Bar</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Weddings, Anniversaries & Birthdays</span>
+            </li>
+          </ul>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:1.2rem; border-top:1px solid var(--border-subtle);">
+            <span style="font-family:var(--font-mono); font-size:1.15rem; font-weight:800; color:var(--gold);">Custom Quote</span>
+            <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20inquire%20about%20the%20Live%20Waffle%20and%20Crepe%20Station%20Catering." target="_blank" rel="noopener" class="btn-primary" style="padding:0.6rem 1.2rem; font-size:0.82rem;">Inquire</a>
+          </div>
+        </div>
+
+        <!-- Package 3 -->
+        <div class="catering-card">
+          <span class="catering-badge">Bespoke Patisserie</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.35rem; font-weight:800; color:var(--cream); margin-bottom:0.6rem;">
+            VIP Patisserie Dessert Buffet
+          </h3>
+          <p style="font-size:0.88rem; color:var(--cream-muted); line-height:1.6;">
+            A luxurious dessert spread with "Brownies to Die For", mini cheesecakes, praline boxes, and specialty coffee.
+          </p>
+          <ul class="catering-features-list">
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>"Brownies to Die For" Platters</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Bespoke 2-Tier Celebration Cake</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Belgian Pralines Gift Favors for Guests</span>
+            </li>
+            <li>
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              <span>Corporate Galas & Diplomatic Receptions</span>
+            </li>
+          </ul>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:1.2rem; border-top:1px solid var(--border-subtle);">
+            <span style="font-family:var(--font-mono); font-size:1.15rem; font-weight:800; color:var(--gold);">From 15,000 GMD</span>
+            <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20inquire%20about%20the%20VIP%20Patisserie%20Dessert%20Buffet." target="_blank" rel="noopener" class="btn-primary" style="padding:0.6rem 1.2rem; font-size:0.82rem;">Inquire</a>
           </div>
         </div>
       </div>
@@ -859,19 +1114,171 @@
         </div>
 
         <div class="admin-tabs">
-          <button class="admin-tab-btn active" onclick="switchAdminTab('general')">General Settings</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('menu')">Menu Availability</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('supabase')">Supabase Cloud Sync</button>
+          <button class="admin-tab-btn active" onclick="switchAdminTab('dashboard')">Dashboard</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('bookings')">Bookings & VIP</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('orders')">Live Orders</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('menu')">Menu & Pricing</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('staff')">Staff & Shifts</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('settings')">Settings & Cloud</button>
         </div>
 
-        <!-- Tab 1: General -->
-        <div id="admin-tab-general" class="admin-tab-panel">
+        <!-- Tab 1: Dashboard Overview -->
+        <div id="admin-tab-dashboard" class="admin-tab-panel">
+          <div class="admin-stats-grid">
+            <div class="admin-stat-card">
+              <div class="admin-stat-num" id="stat-revenue-today">14,850 GMD</div>
+              <div class="admin-stat-label">Today's Revenue</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-num" id="stat-orders-today">28</div>
+              <div class="admin-stat-label">Orders Completed</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-num" id="stat-bookings-today">8</div>
+              <div class="admin-stat-label">Active Bookings</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-num" style="color:#55efa0;">4 Active</div>
+              <div class="admin-stat-label">Staff On Shift</div>
+            </div>
+          </div>
+
+          <div style="background:rgba(36,17,9,0.7); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:1.4rem; margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <h4 style="font-family:var(--font-serif); font-size:1.05rem; color:var(--cream); font-weight:800;">Lounge Operating Mode</h4>
+                <p style="font-size:0.8rem; color:var(--cream-muted);">Current store schedule: Pipeline, Kairaba Avenue (Wednesdays Closed)</p>
+              </div>
+              <button onclick="toggleStoreOpenAdmin()" class="btn-primary" style="padding:0.5rem 1.2rem; font-size:0.8rem;">
+                <span id="admin-toggle-status-txt">Toggle Open / Closed</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Bookings & Table Reservations Management -->
+        <div id="admin-tab-bookings" class="admin-tab-panel" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
+            <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--cream); font-weight:800;">
+              Table Reservations & VIP Requests
+            </h4>
+            <span class="supabase-status-pill supabase-online">Live Sync Active</span>
+          </div>
+          <div style="max-height:300px; overflow-y:auto; border:1px solid var(--border-subtle); border-radius:var(--radius-sm);">
+            <table class="admin-data-table">
+              <thead>
+                <tr>
+                  <th>Guest Name</th>
+                  <th>Party Size</th>
+                  <th>Date & Time</th>
+                  <th>Area</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-bookings-table-body">
+                <!-- Populated dynamically via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 3: Live Orders Queue -->
+        <div id="admin-tab-orders" class="admin-tab-panel" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
+            <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--cream); font-weight:800;">
+              Live Orders & Kitchen Display
+            </h4>
+            <span style="font-size:0.8rem; color:var(--gold-light); font-family:var(--font-mono);">Real-Time Queue</span>
+          </div>
+          <div style="max-height:300px; overflow-y:auto; border:1px solid var(--border-subtle); border-radius:var(--radius-sm);">
+            <table class="admin-data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Table / Type</th>
+                  <th>Items & Custom Recipe</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-table-body">
+                <!-- Populated dynamically via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 4: Menu Stock & Price Control -->
+        <div id="admin-tab-menu" class="admin-tab-panel" style="display:none;">
+          <p style="font-size:0.84rem; color:var(--cream-muted); margin-bottom:1rem;">
+            Toggle items in/out of stock or update Gambian Dalasi prices directly. Changes persist locally and in cloud.
+          </p>
+          <div id="admin-menu-list" style="max-height:320px; overflow-y:auto; padding-right:0.5rem;"></div>
+        </div>
+
+        <!-- Tab 5: Staff Roster & Time Clock -->
+        <div id="admin-tab-staff" class="admin-tab-panel" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
+            <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--cream); font-weight:800;">
+              Active Staff & Time Clock Roster
+            </h4>
+            <span class="supabase-status-pill supabase-online">4 Clocked In</span>
+          </div>
+          <div style="max-height:300px; overflow-y:auto; border:1px solid var(--border-subtle); border-radius:var(--radius-sm);">
+            <table class="admin-data-table">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Role</th>
+                  <th>Clock In Time</th>
+                  <th>Shift Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Lamin Jallow</strong></td>
+                  <td>Master Chocolatier</td>
+                  <td>07:30 AM</td>
+                  <td><span class="admin-badge-status status-confirmed">On Shift</span></td>
+                  <td><button class="admin-action-btn-sm" onclick="alert('Logged Lamin break')">Clock Out</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Isatou Ceesay</strong></td>
+                  <td>Head Barista</td>
+                  <td>08:00 AM</td>
+                  <td><span class="admin-badge-status status-confirmed">On Shift</span></td>
+                  <td><button class="admin-action-btn-sm" onclick="alert('Logged Isatou break')">Clock Out</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Ebrima Touray</strong></td>
+                  <td>Lounge Floor Captain</td>
+                  <td>11:00 AM</td>
+                  <td><span class="admin-badge-status status-confirmed">On Shift</span></td>
+                  <td><button class="admin-action-btn-sm" onclick="alert('Logged Ebrima break')">Clock Out</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Mariama Bah</strong></td>
+                  <td>Pastry & Gelato Chef</td>
+                  <td>07:45 AM</td>
+                  <td><span class="admin-badge-status status-confirmed">On Shift</span></td>
+                  <td><button class="admin-action-btn-sm" onclick="alert('Logged Mariama break')">Clock Out</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 6: Settings, PWA & Cloud Sync -->
+        <div id="admin-tab-settings" class="admin-tab-panel" style="display:none;">
           <div class="admin-form-group">
             <label class="admin-form-label">Top Announcement Banner Text</label>
             <input type="text" id="admin-banner-input" class="admin-form-control" />
           </div>
 
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-bottom:1.5rem;">
             <div class="admin-form-group">
               <label class="admin-form-label">Store Phone Number</label>
               <input type="text" id="admin-phone-input" class="admin-form-control" />
@@ -881,45 +1288,36 @@
               <input type="text" id="admin-whatsapp-input" class="admin-form-control" />
             </div>
           </div>
-        </div>
 
-        <!-- Tab 2: Menu Stock Control -->
-        <div id="admin-tab-menu" class="admin-tab-panel" style="display:none;">
-          <p style="font-size:0.84rem; color:var(--cream-muted); margin-bottom:1rem;">
-            Toggle items in and out of stock. Changes reflect immediately across the digital menu.
-          </p>
-          <div id="admin-menu-list" style="max-height:280px; overflow-y:auto; padding-right:0.5rem;"></div>
-        </div>
-
-        <!-- Tab 3: Supabase Cloud Backend -->
-        <div id="admin-tab-supabase" class="admin-tab-panel" style="display:none;">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem;">
-            <div>
-              <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--cream);">Supabase Cloud Integration</h4>
-              <p style="font-size:0.82rem; color:var(--cream-muted);">Connect your Supabase project or rely on the local resilient fallback.</p>
+          <div style="background:rgba(36,17,9,0.7); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:1.4rem; margin-bottom:1.5rem;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem;">
+              <div>
+                <h4 style="font-family:var(--font-serif); font-size:1.05rem; color:var(--cream); font-weight:800;">Supabase Cloud Integration</h4>
+                <p style="font-size:0.8rem; color:var(--cream-muted);">Connect your Supabase project or rely on the local resilient fallback.</p>
+              </div>
+              <span id="supabase-status-badge" class="supabase-status-pill supabase-fallback">
+                Local Fallback Active
+              </span>
             </div>
-            <span id="supabase-status-badge" class="supabase-status-pill supabase-fallback">
-              Local Fallback Active
-            </span>
-          </div>
 
-          <div class="admin-form-group">
-            <label class="admin-form-label">Supabase Project URL</label>
-            <input type="text" id="supabase-url-input" class="admin-form-control" placeholder="https://yourproject.supabase.co" />
-          </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Supabase Project URL</label>
+              <input type="text" id="supabase-url-input" class="admin-form-control" placeholder="https://yourproject.supabase.co" />
+            </div>
 
-          <div class="admin-form-group">
-            <label class="admin-form-label">Supabase Anon Key</label>
-            <input type="password" id="supabase-key-input" class="admin-form-control" placeholder="eyJhbGciOiJIUzI1NiIsIn..." />
-          </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Supabase Anon Key</label>
+              <input type="password" id="supabase-key-input" class="admin-form-control" placeholder="eyJhbGciOiJIUzI1NiIsIn..." />
+            </div>
 
-          <div style="display:flex; gap:1rem;">
-            <button onclick="testSupabaseConnection()" class="btn-outline" style="padding:0.65rem 1.4rem; font-size:0.84rem;">
-              <span>Test Connection</span>
-            </button>
-            <button onclick="syncMenuToSupabase()" class="btn-primary" style="padding:0.65rem 1.4rem; font-size:0.84rem;">
-              <span>Sync Local Data to Cloud</span>
-            </button>
+            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+              <button onclick="testSupabaseConnection()" class="btn-outline" style="padding:0.65rem 1.4rem; font-size:0.84rem;">
+                <span>Test Connection</span>
+              </button>
+              <button onclick="syncMenuToSupabase()" class="btn-primary" style="padding:0.65rem 1.4rem; font-size:0.84rem;">
+                <span>Sync Local Data to Cloud</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -942,7 +1340,7 @@
       <div class="footer-grid">
         <div>
           <div class="footer-logo-wrap">
-            <img src="./assets/real_choco_loco_logo.png" alt="Choco Loco Real Logo" style="height:100%; object-fit:contain;" />
+            <img src="./assets/real_choco_loco_logo_gold.png" alt="Choco Loco Real Logo" style="height:100%; object-fit:contain;" />
           </div>
           <p class="footer-desc">
             The Gambia premier artisan patisserie, café and dessert lounge. Crafted fresh daily with genuine Belgian Callebaut chocolate at Pipeline Mosque Junction, Kairaba Avenue.
@@ -953,13 +1351,14 @@
           <h4 class="footer-heading">Quick Navigation</h4>
           <ul class="footer-links">
             <li><a href="#hero">Home</a></li>
-            <li><a href="#about">Our Story</a></li>
-            <li><a href="#menu">Digital Menu</a></li>
-            <li><a href="#custom-studio">Build Your Own</a></li>
-            <li><a href="#retail-products">Boutique Products</a></li>
-            <li><a href="#gallery">Moments Gallery</a></li>
-            <li><a href="#table-qr">Table QR System</a></li>
-            <li><a href="#location">Find Our Lounge</a></li>
+            <li><a href="#about">Story</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#custom-studio">Studio</a></li>
+            <li><a href="#retail-products">Boutique</a></li>
+            <li><a href="#gallery">Lounge</a></li>
+            <li><a href="#bookings">Bookings</a></li>
+            <li><a href="#catering">Catering</a></li>
+            <li><a href="#location">Location</a></li>
           </ul>
         </div>
 
@@ -1008,10 +1407,15 @@
 
       <div class="footer-bottom-bar">
         <div>
-          &copy; 2026 Choco Loco Patisserie | Café | Lounge : Pipeline, Kairaba Avenue, The Gambia. All Rights Reserved.
+          &copy; 2026 Choco Loco Patisserie &middot; Café &middot; Lounge : Pipeline, Kairaba Avenue, The Gambia. All Rights Reserved.
         </div>
-        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-bright);">
-          PIPELINE MOSQUE JUNCTION · THE GAMBIA
+        <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-bright);">
+            PIPELINE MOSQUE JUNCTION · THE GAMBIA
+          </span>
+          <span style="font-size:0.82rem; color:var(--cream-muted);">
+            Developed by <a href="https://github.com/Blackmelentan/choco-loco-gambia" target="_blank" rel="noopener" class="kaabu-credit">Kaabu Technologies</a>
+          </span>
         </div>
       </div>
     </div>
