@@ -623,15 +623,46 @@ function renderAdminView() {
   }
 }
 
+// Seed sample bookings & live orders if not present
+function getStoredBookings() {
+  const raw = localStorage.getItem('choco_loco_bookings');
+  if (raw) {
+    try { return JSON.parse(raw); } catch (e) {}
+  }
+  return [
+    { guest: 'Fatou Sowe', phone: '2207123456', guests: '4 Guests', date: 'Tonight', time: '7:00 PM', area: 'Indoor Ambient Lounge', status: 'Confirmed', notes: 'Birthday celebration' },
+    { guest: 'Modou Ceesay', phone: '2203345678', guests: '2 Guests', date: 'Tomorrow', time: '8:30 PM', area: 'VIP Private Booth', status: 'Pending', notes: 'Anniversary dessert tasting' },
+    { guest: 'Awa Jallow', phone: '2209988776', guests: '6 Guests', date: 'Saturday', time: '4:00 PM', area: 'Outdoor Terrace Patio', status: 'Confirmed', notes: 'High tea & waffle party' },
+    { guest: 'Kemo Bojang', phone: '2207890123', guests: '2 Guests', date: 'Tonight', time: '9:15 PM', area: 'Indoor Ambient Lounge', status: 'Seated', notes: 'Dessert & Spanish latte' }
+  ];
+}
+
+function getStoredOrders() {
+  const raw = localStorage.getItem('choco_loco_orders');
+  if (raw) {
+    try { return JSON.parse(raw); } catch (e) {}
+  }
+  return [
+    { id: 'ORD-1042', table: 'Table 4', items: 'Bubble Waffle + 70% Dark Ganache + Pistachio Royale + Gelato', total: '430 GMD', status: 'Preparing' },
+    { id: 'ORD-1041', table: 'Takeaway', items: '2x "Brownies to Die For" + 1x Lotus Biscoff Cheesecake', total: '680 GMD', status: 'Ready' },
+    { id: 'ORD-1040', table: 'Table 2', items: 'Pistachio Sushi Crepe + 2x Specialty Spanish Lattes', total: '580 GMD', status: 'Delivered' },
+    { id: 'ORD-1039', table: 'Table 7', items: 'Dutch Mini-Pancakes + Warm Milk Chocolate + Strawberries', total: '380 GMD', status: 'Delivered' }
+  ];
+}
+
 function renderAdminMenuList() {
   const listEl = document.getElementById('admin-menu-list');
   if (!listEl) return;
 
   listEl.innerHTML = menuItems.map(item => `
-    <div style="display:flex; align-items:center; justify-content:space-between; padding:0.7rem 0; border-bottom:1px solid rgba(255,255,255,0.08);">
-      <div>
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:0.8rem 0; border-bottom:1px solid rgba(255,255,255,0.08); gap:1rem;">
+      <div style="flex:1;">
         <strong style="color:var(--cream); font-size:0.92rem;">${item.name}</strong>
-        <div style="font-size:0.75rem; color:var(--gold);">${item.categoryLabel} &middot; ${item.price} GMD</div>
+        <div style="font-size:0.75rem; color:var(--gold-light);">${item.categoryLabel}</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <span style="font-size:0.78rem; color:var(--cream-muted);">GMD:</span>
+        <input type="number" class="admin-price-input" value="${item.price}" onchange="updateItemPriceAdmin('${item.id}', this.value)" />
       </div>
       <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.8rem; color:${item.inStock ? '#55EFA0' : '#FF7675'}; font-weight:700;">
         <input type="checkbox" ${item.inStock ? 'checked' : ''} onchange="toggleMenuItemStock('${item.id}')" style="accent-color:var(--gold);" />
@@ -640,6 +671,102 @@ function renderAdminMenuList() {
     </div>
   `).join('');
 }
+
+window.updateItemPriceAdmin = function(id, val) {
+  const price = parseInt(val, 10);
+  if (isNaN(price) || price < 0) return;
+  const item = menuItems.find(m => m.id === id);
+  if (item) {
+    item.price = price;
+    localStorage.setItem('choco_loco_menu', JSON.stringify(menuItems));
+    renderMenuGrid();
+  }
+};
+
+function renderAdminBookings() {
+  const tbody = document.getElementById('admin-bookings-table-body');
+  if (!tbody) return;
+  const bookings = getStoredBookings();
+
+  tbody.innerHTML = bookings.map((b, idx) => `
+    <tr>
+      <td>
+        <strong>${b.guest}</strong>
+        <div style="font-size:0.74rem; color:var(--cream-muted);">${b.notes || 'No special requests'}</div>
+      </td>
+      <td>${b.guests}</td>
+      <td>${b.date} &middot; ${b.time}</td>
+      <td>${b.area}</td>
+      <td>
+        <span class="admin-badge-status ${b.status === 'Confirmed' ? 'status-confirmed' : b.status === 'Seated' ? 'status-seated' : 'status-pending'}">
+          ${b.status}
+        </span>
+      </td>
+      <td>
+        <a href="https://wa.me/${b.phone}?text=Hello%20${encodeURIComponent(b.guest)}%2C%20your%20table%20reservation%20at%20Choco%20Loco%20Pipeline%20is%20confirmed!" target="_blank" rel="noopener" class="admin-action-btn-sm">
+          WhatsApp
+        </a>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderAdminOrders() {
+  const tbody = document.getElementById('admin-orders-table-body');
+  if (!tbody) return;
+  const orders = getStoredOrders();
+
+  tbody.innerHTML = orders.map((o, idx) => `
+    <tr>
+      <td><strong style="color:var(--gold);">${o.id}</strong></td>
+      <td>${o.table}</td>
+      <td style="max-width:240px; font-size:0.82rem; color:var(--cream-soft);">${o.items}</td>
+      <td><strong style="color:var(--gold-bright); font-family:var(--font-mono);">${o.total}</strong></td>
+      <td>
+        <span class="admin-badge-status ${o.status === 'Delivered' ? 'status-confirmed' : o.status === 'Ready' ? 'status-seated' : 'status-pending'}">
+          ${o.status}
+        </span>
+      </td>
+      <td>
+        <button class="admin-action-btn-sm" onclick="advanceOrderStatusAdmin(${idx})">
+          Next Status
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+window.advanceOrderStatusAdmin = function(idx) {
+  const orders = getStoredOrders();
+  if (orders[idx]) {
+    if (orders[idx].status === 'Preparing') orders[idx].status = 'Ready';
+    else if (orders[idx].status === 'Ready') orders[idx].status = 'Delivered';
+    else orders[idx].status = 'Preparing';
+    localStorage.setItem('choco_loco_orders', JSON.stringify(orders));
+    renderAdminOrders();
+  }
+};
+
+window.toggleStoreOpenAdmin = function() {
+  const pill = document.getElementById('live-status-pill');
+  if (!pill) return;
+  const isCurrentlyOpen = pill.textContent.includes('OPEN');
+  if (isCurrentlyOpen) {
+    pill.className = 'live-status-pill';
+    pill.style.background = 'rgba(231,76,60,0.2)';
+    pill.style.borderColor = 'rgba(231,76,60,0.5)';
+    pill.style.color = '#FF7675';
+    pill.innerHTML = '<span class="pulse-dot" style="background:#E74C3C;"></span> CURRENTLY CLOSED';
+    alert('Store status set to CLOSED on website.');
+  } else {
+    pill.className = 'live-status-pill';
+    pill.style.background = 'rgba(46,204,113,0.2)';
+    pill.style.borderColor = 'rgba(46,204,113,0.5)';
+    pill.style.color = '#55efa0';
+    pill.innerHTML = '<span class="pulse-dot"></span> OPEN NOW · Closes 11:00 PM';
+    alert('Store status set to OPEN on website.');
+  }
+};
 
 window.toggleMenuItemStock = function(id) {
   const item = menuItems.find(m => m.id === id);
@@ -655,16 +782,68 @@ window.switchAdminTab = function(tabName) {
   document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.admin-tab-panel').forEach(p => p.style.display = 'none');
 
-  if (tabName === 'general') {
-    document.querySelector('.admin-tab-btn:nth-child(1)').classList.add('active');
-    document.getElementById('admin-tab-general').style.display = 'block';
-  } else if (tabName === 'menu') {
-    document.querySelector('.admin-tab-btn:nth-child(2)').classList.add('active');
-    document.getElementById('admin-tab-menu').style.display = 'block';
-  } else if (tabName === 'supabase') {
-    document.querySelector('.admin-tab-btn:nth-child(3)').classList.add('active');
-    document.getElementById('admin-tab-supabase').style.display = 'block';
+  const panel = document.getElementById('admin-tab-' + tabName);
+  if (panel) panel.style.display = 'block';
+
+  // Highlight button
+  const buttons = document.querySelectorAll('.admin-tab-btn');
+  const tabs = ['dashboard', 'bookings', 'orders', 'menu', 'staff', 'settings'];
+  const tabIdx = tabs.indexOf(tabName);
+  if (tabIdx >= 0 && buttons[tabIdx]) {
+    buttons[tabIdx].classList.add('active');
   }
+
+  if (tabName === 'bookings') renderAdminBookings();
+  if (tabName === 'orders') renderAdminOrders();
+  if (tabName === 'menu') renderAdminMenuList();
+};
+
+window.handleBookingSubmit = function(event) {
+  if (event) event.preventDefault();
+
+  const name = document.getElementById('book-name').value.trim();
+  const phone = document.getElementById('book-phone').value.trim();
+  const guests = document.getElementById('book-guests').value;
+  const date = document.getElementById('book-date').value;
+  const time = document.getElementById('book-time').value;
+  const area = document.getElementById('book-area').value;
+  const notes = document.getElementById('book-notes').value.trim();
+
+  if (!name || !phone || !date) {
+    alert('Please provide your name, phone number, and preferred date.');
+    return;
+  }
+
+  // Save to stored bookings
+  const bookings = getStoredBookings();
+  bookings.unshift({
+    guest: name,
+    phone: phone.startsWith('220') ? phone : '220' + phone,
+    guests: guests,
+    date: date,
+    time: time,
+    area: area,
+    status: 'Pending',
+    notes: notes || 'Online table booking'
+  });
+  localStorage.setItem('choco_loco_bookings', JSON.stringify(bookings));
+
+  // Construct pre-filled WhatsApp link
+  const message = [
+    'Hello Choco Loco, I would like to reserve a table:',
+    'Guest: ' + name,
+    'WhatsApp: ' + phone,
+    'Party Size: ' + guests,
+    'Date: ' + date,
+    'Time: ' + time,
+    'Seating: ' + area,
+    notes ? ('Requests: ' + notes) : ''
+  ].filter(Boolean).join('\n');
+
+  const waUrl = 'https://wa.me/' + siteConfig.whatsappNumber + '?text=' + encodeURIComponent(message);
+
+  alert('Thank you, ' + name + '! Your table reservation request has been created. Opening WhatsApp now to confirm with our floor manager.');
+  window.open(waUrl, '_blank');
 };
 
 window.saveAdminSettings = function() {
