@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choco Loco Patisserie | Café | Lounge : Pipeline, The Gambia</title>
+  <meta name="description" content="Choco Loco Patisserie | Café | Lounge : The Gambia premier artisan dessert lounge in Pipeline. Handcrafted Belgian Callebaut chocolate, signature bubble waffles, pistachio sushi crepes, Lotus Biscoff cheesecakes, homemade gelato and takeaway gourmet spreads." />
+
+  <!-- PWA and Mobile Web App Meta -->
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#3A1B0E" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Choco Loco Admin" />
+
+  <!-- Custom Vector Favicon without Emojis -->
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="apple-touch-icon" href="./assets/real_choco_loco_logo.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,600;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS for Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Custom Design System -->
+  <script type="module" crossorigin src="./assets/index-sD2qNpSg.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DZJg1EL9.css">
+</head>
+<body>
+
+  <!-- Ambient Golden Cacao Sparkle Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- TOP ANNOUNCEMENT BAR (NO EMOJIS, NO DASHES) -->
+  <div id="announcement-bar">
+    <div class="announcement-inner">
+      <span id="live-status-pill" class="live-status-pill">
+        <span class="pulse-dot"></span> OPEN NOW &middot; Closes 11:00 PM
+      </span>
+      <span id="announcement-text">
+        Welcome to Choco Loco : Artisan Belgian Callebaut chocolate, signature waffles and luxury patisserie in Pipeline!
+      </span>
+    </div>
+    <div class="announcement-contacts">
+      <a href="tel:+2204000060" class="top-contact-link">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+        <span>+220 400 0060</span>
+      </a>
+      <a href="https://www.instagram.com/chocoloco_gmb/" target="_blank" rel="noopener" class="top-contact-link">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>@chocoloco_gmb</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- MAIN NAVBAR -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-brand">
+        <!-- Real Official Dripping Logo -->
+        <img src="./assets/real_choco_loco_logo.png" alt="Choco Loco Patisserie | Café | Lounge" class="nav-brand-logo" />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#menu">Digital Menu</a></li>
+        <li><a href="#custom-studio">Build Your Own</a></li>
+        <li><a href="#retail-products">Boutique Products</a></li>
+        <li><a href="#gallery">Atmosphere</a></li>
+        <li><a href="#table-qr">Table QR</a></li>
+        <li><a href="#location">Find Us</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="tel:+2204000060" class="btn-outline nav-btn">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+          <span>Call Now</span>
+        </a>
+        <a href="https://wa.me/2204000060" target="_blank" rel="noopener" class="btn-primary btn-whatsapp nav-btn">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <button class="mobile-nav-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section id="hero">
+    <div class="hero-glow-orb-1"></div>
+    <div class="hero-glow-orb-2"></div>
+
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-badges-row">
+          <span class="hero-tag">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            Pipeline Mosque Junction
+          </span>
+          <span class="hero-tag">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            100% Belgian Callebaut
+          </span>
+          <span class="hero-tag">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 14.93V17a1 1 0 01-2 0v-.07A7.003 7.003 0 015.07 11H5a1 1 0 010-2h.07A7.003 7.003 0 0111 5.07V5a1 1 0 012 0v.07A7.003 7.003 0 0118.93 11H19a1 1 0 010 2h-.07A7.003 7.003 0 0113 16.93z"/></svg>
+            Handcrafted Daily
+          </span>
+          <span class="hero-tag">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+            @chocoloco_gmb
+          </span>
+        </div>
+
+        <h1 class="hero-h1">
+          Where Cocoa Meets <br />
+          <span class="gold-gradient-text">Pure Artistry.</span>
+        </h1>
+
+        <p class="hero-desc">
+          Indulge in The Gambia premier dessert destination. Savor our famous 
+          <em>"Brownies to Die For"</em>, signature bubble waffles, pistachio sushi crepes, 
+          silky Lotus Biscoff cheesecakes, and homemade artisan gelato served in our cozy, ambient lounge in Pipeline.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#menu" class="btn-primary">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            <span>Explore Menu</span>
+          </a>
+          <a href="#custom-studio" class="btn-outline" style="border-color: var(--gold);">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <span>Build Your Own Dessert</span>
+          </a>
+          <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20reserve%20a%20table%20or%20place%20an%20order." target="_blank" rel="noopener" class="btn-outline">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+            <span>WhatsApp Order</span>
+          </a>
+        </div>
+
+        <div class="hero-meta-strip">
+          <div>
+            <div class="meta-stat-val">50+</div>
+            <div class="meta-stat-lbl">Artisan Treats</div>
+          </div>
+          <div>
+            <div class="meta-stat-val">100%</div>
+            <div class="meta-stat-lbl">Belgian Chocolate</div>
+          </div>
+          <div>
+            <div class="meta-stat-val">Pipeline</div>
+            <div class="meta-stat-lbl">Opposite Mosque (Blue Building)</div>
+          </div>
+          <div>
+            <div class="meta-stat-val">11 PM</div>
+            <div class="meta-stat-lbl">Late Night Lounge</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-visual-card">
+          <img src="./assets/brownies_to_die_for.jpg" alt="Choco Loco Famous Brownies to Die For" class="hero-main-img" />
+          <div class="hero-float-badge">
+            <div>
+              <div class="badge-title">Famous "Brownies to Die For"</div>
+              <div class="badge-sub">Warm Belgian Callebaut Chocolate &middot; Gold Flakes &middot; Vanilla Gelato</div>
+            </div>
+            <div class="badge-price">390 GMD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS AND RECOGNITION BANNER -->
+  <div class="stats-banner">
+    <div class="container stats-grid">
+      <div>
+        <div class="stat-box-num">1,500+</div>
+        <div class="stat-box-desc">Community Followers on Instagram (@chocoloco_gmb)</div>
+      </div>
+      <div>
+        <div class="stat-box-num">100%</div>
+        <div class="stat-box-desc">Authentic Belgian Couverture Chocolate Sourced</div>
+      </div>
+      <div>
+        <div class="stat-box-num">Pipeline</div>
+        <div class="stat-box-desc">Iconic Blue Building Opposite Pipeline Mosque</div>
+      </div>
+      <div>
+        <div class="stat-box-num">Top Rated</div>
+        <div class="stat-box-desc">Beloved Patisserie and Dessert Lounge in The Gambia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT US / OUR STORY -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-stack">
+          <img src="./assets/cafe_pastry_counter.jpg" alt="Choco Loco Patisserie Display Counter" class="about-img-main" />
+          <div class="about-card-overlap">
+            <h4 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--gold-light); margin-bottom:0.4rem;">
+              The Pipeline Lounge
+            </h4>
+            <p style="font-size:0.84rem; color:var(--cream-muted); line-height:1.5;">
+              Opposite Pipeline Mosque in the Blue Building : freshly baked treats displayed daily in our boutique counter!
+            </p>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <div class="section-label">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            Handcrafted With Heart
+          </div>
+          <h2 class="section-title">
+            About <span class="gold-gradient-text">Choco Loco</span>
+          </h2>
+          <p class="section-sub" style="margin-bottom: 1.5rem;">
+            Choco Loco Patisserie | Café | Lounge in Pipeline, The Gambia, was founded by Mrs. Rima Bourgi 
+            with a singular mission: to offer completely in-house prepared, from-scratch luxury desserts 
+            that bring genuine European chocolaterie artistry to Kairaba Avenue.
+          </p>
+          <p style="color:var(--cream-muted); font-size: 0.98rem; line-height: 1.8; margin-bottom: 2rem;">
+            From our legendary <strong>"Brownies to Die For"</strong> and golden bubble waffles to French Crêpes Suzette, 
+            silky Lotus Biscoff cheesecakes, and our renowned <strong>"Build Your Own"</strong> dessert bar, everything is 
+            prepared fresh using 100% pure Belgian Callebaut chocolate. Whether you are dropping in for a morning croissant 
+            and Spanish latte or gathering in the evening with family in our relaxing air-conditioned lounge, we welcome you 
+            with warm Gambian hospitality.
+          </p>
+
+          <div class="about-pillar-grid">
+            <div class="about-pillar-card">
+              <div class="pillar-icon-box">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 17.93V19a1 1 0 01-2 0v-.07A8.006 8.006 0 014.07 13H4a1 1 0 010-2h.07A8.006 8.006 0 0111 4.07V4a1 1 0 012 0v.07A8.006 8.006 0 0119.93 11H20a1 1 0 010 2h-.07A8.006 8.006 0 0113 19.93z"/></svg>
+              </div>
+              <div class="pillar-title">Pure Belgian Callebaut</div>
+              <div class="pillar-desc">Only authentic imported Belgian couverture, never compound syrups.</div>
+            </div>
+            <div class="about-pillar-card">
+              <div class="pillar-icon-box">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+              </div>
+              <div class="pillar-title">Homemade Artisan Ice Cream</div>
+              <div class="pillar-desc">Freshly churned gelato and sorbets visible in our glass counter daily.</div>
+            </div>
+            <div class="about-pillar-card">
+              <div class="pillar-icon-box">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/></svg>
+              </div>
+              <div class="pillar-title">Specialty Café and Drinks</div>
+              <div class="pillar-desc">Dulce de leche Spanish lattes, caramel macchiato, smoothies and shakes.</div>
+            </div>
+            <div class="about-pillar-card">
+              <div class="pillar-icon-box">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 4.5l6 5.4V18H6v-5.1l6-5.4z"/></svg>
+              </div>
+              <div class="pillar-title">Fresh Savory and Bakery</div>
+              <div class="pillar-desc">Buttery croissants, hearty breads and toasted gourmet sandwiches.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIGITAL MENU SECTION -->
+  <section id="menu">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-label">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Fresh In House Treats
+        </div>
+        <h2 class="section-title">
+          The Digital <span class="gold-gradient-text">Menu</span>
+        </h2>
+        <p class="section-sub">
+          Crafted fresh to order in Pipeline. Order directly via WhatsApp for dine-in or takeaway. 
+          All prices in Gambian Dalasi (GMD).
+        </p>
+      </div>
+
+      <!-- Category Filter Tabs (NO EMOJIS) -->
+      <div class="menu-category-tabs">
+        <button class="tab-btn active" data-category="all">All Delights</button>
+        <button class="tab-btn" data-category="waffles">Waffles and Pancakes</button>
+        <button class="tab-btn" data-category="crepes">Crepes and Suzette</button>
+        <button class="tab-btn" data-category="patisserie">Brownies and Cheesecakes</button>
+        <button class="tab-btn" data-category="gelato">Homemade Gelato</button>
+        <button class="tab-btn" data-category="drinks">Shakes and Coffees</button>
+        <button class="tab-btn" data-category="savory">Savory and Bakery</button>
+      </div>
+
+      <!-- Menu Items Dynamic Grid -->
+      <div id="menu-items-grid" class="menu-cards-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE BUILD YOUR OWN DESSERT STUDIO -->
+  <section id="custom-studio">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-label">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          Choco Loco Custom Concept
+        </div>
+        <h2 class="section-title">
+          Build Your Own <span class="gold-gradient-text">Dessert</span>
+        </h2>
+        <p class="section-sub">
+          Our famous customized experience! Choose your favorite freshly baked base, warm Belgian glazes, 
+          gourmet toppings, and gelato scoops. Watch your creation come to life!
+        </p>
+      </div>
+
+      <div class="studio-card">
+        <!-- Studio Configuration Controls -->
+        <div class="studio-controls-side">
+          <!-- Step 1: Base -->
+          <div class="studio-step-group">
+            <div class="studio-step-title">
+              <span class="step-num">1</span> Choose Your Base:
+            </div>
+            <div class="studio-options-grid" id="studio-base-options">
+              <div class="studio-pill-option selected" data-type="base" data-name="Belgian Bubble Waffle" data-price="250">
+                <div class="studio-pill-name">Bubble Waffle</div>
+                <div class="studio-pill-price">250 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="base" data-name="French Crepe" data-price="240">
+                <div class="studio-pill-name">French Crepe</div>
+                <div class="studio-pill-price">240 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="base" data-name="Fudgy Brownie" data-price="260">
+                <div class="studio-pill-name">Warm Brownie</div>
+                <div class="studio-pill-price">260 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="base" data-name="Dutch Mini Pancakes" data-price="220">
+                <div class="studio-pill-name">Poffertjes (12pc)</div>
+                <div class="studio-pill-price">220 GMD</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Warm Belgian Sauces -->
+          <div class="studio-step-group">
+            <div class="studio-step-title">
+              <span class="step-num">2</span> Select Warm Belgian Sauce:
+            </div>
+            <div class="studio-options-grid" id="studio-sauce-options">
+              <div class="studio-pill-option selected" data-type="sauce" data-name="Belgian Milk Chocolate" data-price="0">
+                <div class="studio-pill-name">Belgian Milk Chocolate</div>
+                <div class="studio-pill-price">Included</div>
+              </div>
+              <div class="studio-pill-option" data-type="sauce" data-name="70% Dark Ganache" data-price="20">
+                <div class="studio-pill-name">70% Dark Ganache</div>
+                <div class="studio-pill-price">+20 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="sauce" data-name="White Chocolate Velvet" data-price="20">
+                <div class="studio-pill-name">White Chocolate</div>
+                <div class="studio-pill-price">+20 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="sauce" data-name="Lotus Biscoff Drizzle" data-price="40">
+                <div class="studio-pill-name">Lotus Biscoff</div>
+                <div class="studio-pill-price">+40 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="sauce" data-name="Sicilian Pistachio Cream" data-price="50">
+                <div class="studio-pill-name">Pistachio Cream</div>
+                <div class="studio-pill-price">+50 GMD</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Gourmet Toppings -->
+          <div class="studio-step-group">
+            <div class="studio-step-title">
+              <span class="step-num">3</span> Add Artisanal Toppings:
+            </div>
+            <div class="studio-options-grid" id="studio-topping-options">
+              <div class="studio-pill-option selected" data-type="topping" data-name="Fresh Strawberries" data-price="50">
+                <div class="studio-pill-name">Fresh Strawberries</div>
+                <div class="studio-pill-price">+50 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="topping" data-name="Lotus Biscoff Crumbs" data-price="35">
+                <div class="studio-pill-name">Biscoff Crumbs</div>
+                <div class="studio-pill-price">+35 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="topping" data-name="Roasted Pistachios" data-price="60">
+                <div class="studio-pill-name">Roasted Pistachios</div>
+                <div class="studio-pill-price">+60 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="topping" data-name="Crushed Oreos" data-price="35">
+                <div class="studio-pill-name">Crushed Oreos</div>
+                <div class="studio-pill-price">+35 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="topping" data-name="Kinder Bueno" data-price="55">
+                <div class="studio-pill-name">Kinder Bueno</div>
+                <div class="studio-pill-price">+55 GMD</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Gelato Scoop -->
+          <div class="studio-step-group">
+            <div class="studio-step-title">
+              <span class="step-num">4</span> Add Gelato Scoop:
+            </div>
+            <div class="studio-options-grid" id="studio-gelato-options">
+              <div class="studio-pill-option selected" data-type="gelato" data-name="Madagascar Vanilla Gelato" data-price="70">
+                <div class="studio-pill-name">Vanilla Bean</div>
+                <div class="studio-pill-price">+70 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="gelato" data-name="Belgian Chocolate Fudge" data-price="70">
+                <div class="studio-pill-name">Chocolate Fudge</div>
+                <div class="studio-pill-price">+70 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="gelato" data-name="Sicilian Pistachio Gelato" data-price="85">
+                <div class="studio-pill-name">Pistachio Gelato</div>
+                <div class="studio-pill-price">+85 GMD</div>
+              </div>
+              <div class="studio-pill-option" data-type="gelato" data-name="No Gelato" data-price="0">
+                <div class="studio-pill-name">No Gelato</div>
+                <div class="studio-pill-price">0 GMD</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Studio Live Visual Plate Preview -->
+        <div class="studio-preview-box">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:#8C531B; font-weight:700; margin-bottom:0.5rem;">
+              Live Custom Creation Preview
+            </div>
+            <div class="studio-preview-plate">
+              <div class="plate-vector-display">
+                <svg class="plate-svg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              </div>
+              <div class="plate-title-display" id="plate-title">Custom Bubble Waffle Indulgence</div>
+              <div class="plate-ingredients-list" id="plate-ingredients">
+                Belgian Milk Chocolate + Fresh Strawberries + Madagascar Vanilla Gelato
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1.2rem; border-top:1px solid #E6D0BA; padding-top:1rem;">
+              <span style="font-size:0.95rem; font-weight:700; color:#5A2A14;">Total Custom Price:</span>
+              <span id="plate-total-price" style="font-family:var(--font-mono); font-size:1.8rem; font-weight:900; color:#8C531B;">370 GMD</span>
+            </div>
+
+            <a id="studio-whatsapp-btn" href="#" target="_blank" rel="noopener" class="btn-primary btn-whatsapp" style="width:100%; text-align:center;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+              <span>Order Custom Creation via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RETAIL PRODUCTS CATALOG SECTION -->
+  <section id="retail-products">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-label">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 16H6V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v12z"/></svg>
+          Choco Loco Boutique and Takeaway
+        </div>
+        <h2 class="section-title">
+          Take Home the <span class="gold-gradient-text">Artisanal Magic</span>
+        </h2>
+        <p class="section-sub">
+          Did you know Choco Loco crafts boutique packaged products to take home? 
+          Enjoy our signature stone-ground pistachio spreads, luxury praline gift boxes, and pre-ordered celebration cakes.
+        </p>
+      </div>
+
+      <div class="products-grid">
+        <!-- Product 1: Pistachio Royale Spread -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="./assets/retail_products_giftbox.jpg" alt="Choco Loco Pistachio Royale Spread Jar" class="product-card-img" />
+            <span class="product-badge-jar">Signature Spread</span>
+          </div>
+          <div class="product-card-body">
+            <h3 class="product-name">Pistachio Royale Spread (250g)</h3>
+            <p class="product-desc">
+              Velvety stone-ground Sicilian pistachio cream in an artisan glass jar. Perfect on toasted brioche, pancakes, or enjoyed by the spoonful.
+            </p>
+            <div class="product-card-footer">
+              <div class="item-price-gmd">350 <span>GMD</span></div>
+              <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20order%20the%20Pistachio%20Royale%20Spread%20jar." target="_blank" rel="noopener" class="item-order-btn">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+                <span>Order Jar</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2: Rich Chocolate Hazelnut Cream -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="./assets/retail_products_giftbox.jpg" alt="Choco Loco Rich Chocolate Hazelnut Cream Jar" class="product-card-img" />
+            <span class="product-badge-jar">Best Seller</span>
+          </div>
+          <div class="product-card-body">
+            <h3 class="product-name">Rich Chocolate Hazelnut Cream (250g)</h3>
+            <p class="product-desc">
+              Pure roasted Piedmont hazelnuts blended with authentic Belgian Callebaut milk chocolate. Silky, rich, and preservative-free.
+            </p>
+            <div class="product-card-footer">
+              <div class="item-price-gmd">320 <span>GMD</span></div>
+              <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20order%20the%20Rich%20Chocolate%20Hazelnut%20Cream%20jar." target="_blank" rel="noopener" class="item-order-btn">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+                <span>Order Jar</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3: Executive Belgian Praline Gift Box -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="./assets/retail_products_giftbox.jpg" alt="Choco Loco Executive Belgian Praline Box" class="product-card-img" />
+            <span class="product-badge-jar" style="background:var(--accent-berry); color:#fff;">Luxury Gift</span>
+          </div>
+          <div class="product-card-body">
+            <h3 class="product-name">Executive Belgian Praline Gift Box</h3>
+            <p class="product-desc">
+              An elegant boutique box tied with gold satin ribbon containing 12 assorted handcrafted Belgian ganaches, salted caramel bonbons and truffles.
+            </p>
+            <div class="product-card-footer">
+              <div class="item-price-gmd">650 <span>GMD</span></div>
+              <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20order%20the%20Executive%20Belgian%20Praline%20Gift%20Box." target="_blank" rel="noopener" class="item-order-btn">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+                <span>Order Box</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4: Custom Celebration and Birthday Cakes -->
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="./assets/biscoff_cheesecake.jpg" alt="Choco Loco Custom Celebration Cakes" class="product-card-img" />
+            <span class="product-badge-jar" style="background:#55EFA0; color:#160A06;">Custom Order</span>
+          </div>
+          <div class="product-card-body">
+            <h3 class="product-name">Custom Celebration Cakes (Pre-Order)</h3>
+            <p class="product-desc">
+              Full size celebration cakes for birthdays, anniversaries, and VIP gatherings. Choose Lotus Biscoff, Belgian Drip Chocolate, or Pistachio Velvet.
+            </p>
+            <div class="product-card-footer">
+              <div class="item-price-gmd">From 1,800 <span>GMD</span></div>
+              <a href="https://wa.me/2204000060?text=Hello%20Choco%20Loco%2C%20I%20would%20like%20to%20inquire%20about%20a%20Custom%20Celebration%20Cake." target="_blank" rel="noopener" class="item-order-btn">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+                <span>Custom Cake</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REAL ATMOSPHERE AND SOCIAL GALLERY -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-label">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+          Social and Lounge Atmosphere
+        </div>
+        <h2 class="section-title">
+          Moments at <span class="gold-gradient-text">Choco Loco</span>
+        </h2>
+        <p class="section-sub">
+          A glimpse into daily life at our Pipeline patisserie and lounge. Follow our community on Instagram 
+          <a href="https://www.instagram.com/chocoloco_gmb/" target="_blank" rel="noopener" style="color:var(--gold-bright); text-decoration:none; font-weight:700;">@chocoloco_gmb</a>!
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- Photo 1: Real Counter (My Gambia) -->
+        <div class="gallery-card">
+          <img src="./assets/cafe_pastry_counter.jpg" alt="Choco Loco Pastry Display Counter" class="gallery-img" />
+          <div class="gallery-overlay">
+            <div class="gallery-tag">Boutique Display</div>
+            <div class="gallery-caption">Glass Pastry and Ice Cream Counter</div>
+          </div>
+        </div>
+
+        <!-- Photo 2: Real Exterior Patio -->
+        <div class="gallery-card">
+          <img src="./assets/cafe_exterior_patio.jpg" alt="Choco Loco Outdoor Terrace" class="gallery-img" />
+          <div class="gallery-overlay">
+            <div class="gallery-tag">Terrace Seating</div>
+            <div class="gallery-caption">Outdoor Patio and Welcome Lounge</div>
+          </div>
+        </div>
+
+        <!-- Photo 3: Brownies to Die For -->
+        <div class="gallery-card">
+          <img src="./assets/brownies_to_die_for.jpg" alt="Choco Loco Famous Brownies" class="gallery-img" />
+          <div class="gallery-overlay">
+            <div class="gallery-tag">Signature Treat</div>
+            <div class="gallery-caption">"Brownies to Die For" with Gold Flakes</div>
+          </div>
+        </div>
+
+        <!-- Photo 4: Homemade Artisan Ice Cream -->
+        <div class="gallery-card">
+          <img src="./assets/homemade_ice_cream.jpg" alt="Choco Loco Homemade Gelato" class="gallery-img" />
+          <div class="gallery-overlay">
+            <div class="gallery-tag">Freshly Churned</div>
+            <div class="gallery-caption">Artisan Pistachio and Chocolate Gelato</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE QR CODE GENERATOR SECTION -->
+  <section id="table-qr">
+    <div class="container">
+      <div class="qr-generator-card">
+        <div class="qr-info-side">
+          <div class="section-label">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+            Table QR Ordering
+          </div>
+          <h2 class="section-title" style="font-size:2.3rem;">
+            Instant Digital <br />
+            <span class="gold-gradient-text">Table Menu QR.</span>
+          </h2>
+          <p class="section-sub" style="margin-bottom:1.8rem;">
+            Place this QR stand on your table so guests and floor staff can instantly view the live digital menu 
+            and specials right on their smartphone camera without downloading an app.
+          </p>
+
+          <div style="background:rgba(36,17,9,0.7); padding:1.4rem; border-radius:var(--radius-md); border:1px solid var(--border-subtle); margin-bottom:1.8rem;">
+            <label class="admin-form-label">Select Lounge Station or Table:</label>
+            <div class="table-selector-controls">
+              <select id="table-selector" class="table-select-input">
+                <option value="Table 1">Table 01 : Indoor Lounge</option>
+                <option value="Table 2">Table 02 : Indoor Lounge</option>
+                <option value="Table 3">Table 03 : Indoor Lounge</option>
+                <option value="Table 4">Table 04 : Window Booth</option>
+                <option value="Table 5">Table 05 : Window Booth</option>
+                <option value="Table 6">Table 06 : Terrace Station</option>
+                <option value="Table 7">Table 07 : Terrace Station</option>
+                <option value="VIP Lounge">VIP Lounge Suite</option>
+                <option value="Patisserie Bar">Front Patisserie Bar</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <button onclick="window.print()" class="btn-primary" style="padding:0.75rem 1.6rem; font-size:0.88rem;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+              <span>Print QR Card</span>
+            </button>
+            <button onclick="downloadTableQR()" class="btn-outline" style="padding:0.75rem 1.6rem; font-size:0.88rem;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+              <span>Download PNG</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="qr-render-side">
+          <div class="qr-preview-box">
+            <img src="./assets/real_choco_loco_logo.png" alt="Choco Loco Real Logo" class="qr-header-brand-img" />
+            <div class="qr-header-sub">Patisserie &middot; Café &middot; Lounge</div>
+            <div class="qr-canvas-holder">
+              <canvas id="qr-table-canvas"></canvas>
+            </div>
+            <div class="qr-footer-instruct">
+              Scan with your phone camera for digital menu
+            </div>
+            <div style="margin-top:0.6rem; font-family:var(--font-mono); font-size:0.82rem; font-weight:800; color:#8C531B; display:flex; align-items:center; justify-content:center; gap:0.4rem;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+              <span id="qr-table-number-display">Table 1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION AND LEAFLET MAP SECTION -->
+  <section id="location">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-label">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          Find Our Lounge
+        </div>
+        <h2 class="section-title">
+          Visit Us in <span class="gold-gradient-text">Pipeline</span>
+        </h2>
+        <p class="section-sub">
+          Conveniently situated at the iconic Blue Building, directly opposite Pipeline Mosque on Kairaba Avenue, Serekunda.
+        </p>
+      </div>
+
+      <div class="location-grid">
+        <div class="location-info-card">
+          <div class="contact-item-row">
+            <div class="contact-icon-bubble">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            </div>
+            <div>
+              <div class="contact-title">Physical Location</div>
+              <div class="contact-desc">
+                Junction Opposite Pipeline Mosque, Blue Building, <br />
+                Pipeline, Kairaba Avenue, Serekunda, The Gambia
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item-row">
+            <div class="contact-icon-bubble">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-title">Direct Telephone</div>
+              <div class="contact-desc">
+                <a href="tel:+2204000060" style="color:var(--cream); text-decoration:none;">+220 400 0060</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item-row">
+            <div class="contact-icon-bubble">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+            </div>
+            <div>
+              <div class="contact-title">WhatsApp Order Desk</div>
+              <div class="contact-desc">
+                <a href="https://wa.me/2204000060" target="_blank" rel="noopener" style="color:#55EFA0; text-decoration:none;">
+                  +220 400 0060 (Instant Chat)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item-row">
+            <div class="contact-icon-bubble">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+            </div>
+            <div>
+              <div class="contact-title">Instagram Social Hub</div>
+              <div class="contact-desc">
+                <a href="https://www.instagram.com/chocoloco_gmb/" target="_blank" rel="noopener" style="color:var(--gold-bright); text-decoration:none;">
+                  @chocoloco_gmb
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--gold); margin-top:2rem; margin-bottom:0.8rem; font-weight:800;">
+            Operating Hours
+          </h4>
+          <table class="hours-table">
+            <tr>
+              <td>Monday to Tuesday</td>
+              <td>7:00 AM to 11:00 PM</td>
+            </tr>
+            <tr style="color:var(--gold-bright); font-weight:700;">
+              <td>Wednesday</td>
+              <td style="color:#FF7675;">CLOSED</td>
+            </tr>
+            <tr>
+              <td>Thursday to Saturday</td>
+              <td>7:00 AM to 11:00 PM</td>
+            </tr>
+            <tr>
+              <td>Sunday</td>
+              <td>8:00 AM to 11:00 PM</td>
+            </tr>
+          </table>
+
+          <div style="margin-top: 2rem;">
+            <a href="https://maps.google.com/?q=Pipeline+Mosque+Kairaba+Avenue+Gambia" target="_blank" rel="noopener" class="btn-primary" style="width:100%;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+              <span>Open in Google Maps</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="map-container-wrap">
+          <div id="leaflet-map"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN AND PWA MODAL (NO EMOJIS, NO DASHES) -->
+  <div id="admin-modal">
+    <div class="admin-card">
+      <button class="admin-close-btn" onclick="closeAdminModal()">&times;</button>
+      
+      <!-- Admin Header with Real Logo -->
+      <div style="display:flex; align-items:center; gap:1.2rem; margin-bottom:1.5rem; border-bottom:1px solid var(--border-subtle); padding-bottom:1.2rem;">
+        <img src="./assets/real_choco_loco_logo.png" alt="Choco Loco Logo" style="height:48px;" />
+        <div>
+          <h2 style="font-family:var(--font-serif); font-size:1.6rem; color:var(--cream);">
+            Choco Loco Admin and Staff Console
+          </h2>
+          <p style="font-size:0.82rem; color:var(--cream-muted);">
+            Real time management for announcements, menu availability, and cloud sync.
+          </p>
+        </div>
+      </div>
+
+      <!-- Authentication Section -->
+      <div id="admin-auth-section">
+        <div style="background:rgba(36,17,9,0.8); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:2rem; text-align:center; max-width:440px; margin:2rem auto;">
+          <div class="auth-icon-wrap" style="margin-bottom:1rem;">
+            <svg class="svg-icon-lg" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <h3 style="font-family:var(--font-serif); font-size:1.3rem; margin-bottom:0.5rem; color:var(--cream);">Staff and Admin Sign In</h3>
+          <p style="font-size:0.84rem; color:var(--cream-muted); margin-bottom:1.5rem;">Enter the store management PIN to access live settings and PWA install:</p>
+          <input type="password" id="admin-pin-input" class="admin-form-control" placeholder="Enter PIN (Demo: 2026)" style="text-align:center; font-size:1.2rem; letter-spacing:0.2em; margin-bottom:1rem;" />
+          <button onclick="handleAdminLogin()" class="btn-primary" style="width:100%;">Unlock Admin Console</button>
+        </div>
+      </div>
+
+      <!-- Authenticated Admin Content -->
+      <div id="admin-content-section" style="display:none;">
+        
+        <!-- PWA Install Prompt Banner -->
+        <div id="pwa-install-banner" class="pwa-admin-callout">
+          <div>
+            <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.3rem;">
+              <span class="pwa-badge">Official Staff PWA</span>
+              <span style="font-weight:800; font-size:0.95rem; color:var(--cream);">Install Choco Admin App</span>
+            </div>
+            <p style="font-size:0.82rem; color:var(--cream-muted); line-height:1.4;">
+              Install this console on your phone home screen or desktop taskbar for instant, 1-tap offline-ready access.
+            </p>
+          </div>
+          <button id="pwa-install-btn" class="btn-primary" style="padding:0.65rem 1.4rem; font-size:0.82rem; white-space:nowrap;">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+            <span>Install PWA App</span>
+          </button>
+        </div>
+
+        <div class="admin-tabs">
+          <button class="admin-tab-btn active" onclick="switchAdminTab('general')">General Settings</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('menu')">Menu Availability</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('supabase')">Supabase Cloud Sync</button>
+        </div>
+
+        <!-- Tab 1: General -->
+        <div id="admin-tab-general" class="admin-tab-panel">
+          <div class="admin-form-group">
+            <label class="admin-form-label">Top Announcement Banner Text</label>
+            <input type="text" id="admin-banner-input" class="admin-form-control" />
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+            <div class="admin-form-group">
+              <label class="admin-form-label">Store Phone Number</label>
+              <input type="text" id="admin-phone-input" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">WhatsApp Number (e.g. 2204000060)</label>
+              <input type="text" id="admin-whatsapp-input" class="admin-form-control" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Menu Stock Control -->
+        <div id="admin-tab-menu" class="admin-tab-panel" style="display:none;">
+          <p style="font-size:0.84rem; color:var(--cream-muted); margin-bottom:1rem;">
+            Toggle items in and out of stock. Changes reflect immediately across the digital menu.
+          </p>
+          <div id="admin-menu-list" style="max-height:280px; overflow-y:auto; padding-right:0.5rem;"></div>
+        </div>
+
+        <!-- Tab 3: Supabase Cloud Backend -->
+        <div id="admin-tab-supabase" class="admin-tab-panel" style="display:none;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem;">
+            <div>
+              <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--cream);">Supabase Cloud Integration</h4>
+              <p style="font-size:0.82rem; color:var(--cream-muted);">Connect your Supabase project or rely on the local resilient fallback.</p>
+            </div>
+            <span id="supabase-status-badge" class="supabase-status-pill supabase-fallback">
+              Local Fallback Active
+            </span>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label">Supabase Project URL</label>
+            <input type="text" id="supabase-url-input" class="admin-form-control" placeholder="https://yourproject.supabase.co" />
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label">Supabase Anon Key</label>
+            <input type="password" id="supabase-key-input" class="admin-form-control" placeholder="eyJhbGciOiJIUzI1NiIsIn..." />
+          </div>
+
+          <div style="display:flex; gap:1rem;">
+            <button onclick="testSupabaseConnection()" class="btn-outline" style="padding:0.65rem 1.4rem; font-size:0.84rem;">
+              <span>Test Connection</span>
+            </button>
+            <button onclick="syncMenuToSupabase()" class="btn-primary" style="padding:0.65rem 1.4rem; font-size:0.84rem;">
+              <span>Sync Local Data to Cloud</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2.5rem; border-top:1px solid var(--border-subtle); padding-top:1.5rem;">
+          <button onclick="handleAdminLogout()" class="btn-outline" style="padding:0.65rem 1.2rem; font-size:0.82rem; color:#FF7675; border-color:rgba(231,76,60,0.4);">
+            <span>Logout Admin</span>
+          </button>
+          <div style="display:flex; gap:1rem;">
+            <button onclick="closeAdminModal()" class="btn-outline" style="padding:0.65rem 1.4rem;">Close</button>
+            <button onclick="saveAdminSettings()" class="btn-primary" style="padding:0.65rem 1.8rem;">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER (NO EMOJIS, NO DASHES) -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo-wrap">
+            <img src="./assets/real_choco_loco_logo.png" alt="Choco Loco Real Logo" style="height:100%; object-fit:contain;" />
+          </div>
+          <p class="footer-desc">
+            The Gambia premier artisan patisserie, café and dessert lounge. Crafted fresh daily with genuine Belgian Callebaut chocolate at Pipeline Mosque Junction, Kairaba Avenue.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Quick Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#menu">Digital Menu</a></li>
+            <li><a href="#custom-studio">Build Your Own</a></li>
+            <li><a href="#retail-products">Boutique Products</a></li>
+            <li><a href="#gallery">Moments Gallery</a></li>
+            <li><a href="#table-qr">Table QR System</a></li>
+            <li><a href="#location">Find Our Lounge</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Menu Highlights</h4>
+          <ul class="footer-links">
+            <li><a href="#menu">"Brownies to Die For"</a></li>
+            <li><a href="#menu">Lotus Biscoff Cheesecakes</a></li>
+            <li><a href="#menu">Pistachio Sushi Crepes</a></li>
+            <li><a href="#menu">Homemade Artisan Gelato</a></li>
+            <li><a href="#retail-products">Pistachio Royale Spreads</a></li>
+            <li><a href="#menu">Specialty Spanish Lattes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Connect With Us</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="https://wa.me/2204000060" target="_blank" rel="noopener">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+                <span>WhatsApp: +220 400 0060</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:+2204000060">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+                <span>Call: +220 400 0060</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/chocoloco_gmb/" target="_blank" rel="noopener">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+                <span>Instagram: @chocoloco_gmb</span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="openAdminModal()">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                <span>Staff and Admin Access (PWA)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>
+          &copy; 2026 Choco Loco Patisserie | Café | Lounge : Pipeline, Kairaba Avenue, The Gambia. All Rights Reserved.
+        </div>
+        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-bright);">
+          PIPELINE MOSQUE JUNCTION · THE GAMBIA
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet JS for Map -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Main Application Logic & Supabase Integration -->
+</body>
+</html>

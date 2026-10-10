@@ -1,0 +1,25 @@
+{
+  "name": "Choco Loco Patisserie & Lounge · Staff & Admin",
+  "short_name": "Choco Admin",
+  "description": "Administrative management and live stock control for Choco Loco Patisserie & Lounge in Pipeline, The Gambia.",
+  "start_url": "./#admin",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#231109",
+  "theme_color": "#4A2213",
+  "icons": [
+    {
+      "src": "./assets/real_choco_loco_logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/real_choco_loco_logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

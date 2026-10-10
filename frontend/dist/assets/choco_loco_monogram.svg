@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5A93C" />
+      <stop offset="50%" stop-color="#FCD888" />
+      <stop offset="100%" stop-color="#B87B1E" />
+    </linearGradient>
+    <radialGradient id="bgM" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3B180A" />
+      <stop offset="85%" stop-color="#1A0A04" />
+      <stop offset="100%" stop-color="#0E0502" />
+    </radialGradient>
+  </defs>
+  <circle cx="80" cy="80" r="76" fill="url(#bgM)" stroke="url(#goldM)" stroke-width="2.5" />
+  <circle cx="80" cy="80" r="70" fill="none" stroke="url(#goldM)" stroke-width="1" stroke-dasharray="8 4" opacity="0.6" />
+  <!-- Cocoa pod outline -->
+  <path d="M80 32 C102 32 116 54 116 80 C116 106 98 126 80 128 C62 126 44 106 44 80 C44 54 58 32 80 32 Z" fill="none" stroke="url(#goldM)" stroke-width="1.8" opacity="0.5" />
+  <!-- Monogram letters -->
+  <text x="80" y="88" font-family="'Playfair Display', Georgia, serif" font-weight="900" font-size="38" fill="url(#goldM)" text-anchor="middle" letter-spacing="1">CL</text>
+  <text x="80" y="112" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="8.5" fill="#FFF4E6" text-anchor="middle" letter-spacing="3">CHOCO LOCO</text>
+  <text x="80" y="124" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#E5A93C" text-anchor="middle" letter-spacing="2">EST. PIPELINE</text>
+</svg>
