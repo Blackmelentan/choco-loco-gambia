@@ -942,7 +942,149 @@ window.syncMenuToSupabase = async function() {
 };
 
 // ══════════════════════════════════════════════════════════
-// 10. INITIALIZATION LIFECYCLE
+// 10. SPA PAGE VIEW ROUTER
+// ══════════════════════════════════════════════════════════
+
+/**
+ * Map of hash fragment -> data-page attribute on .page-view wrappers.
+ * Pages that don't exist as separate views fall back to 'home'.
+ */
+const PAGE_MAP = {
+  '':          'home',
+  'home':      'home',
+  'menu':      'menu',
+  'studio':    'studio',
+  'boutique':  'boutique',
+  'lounge':    'lounge',
+  'bookings':  'bookings',
+  'catering':  'catering',
+  'about':     'about',
+  'location':  'location',
+  // Legacy hash aliases (old section IDs in single-page layout)
+  'hero':            'home',
+  'custom-studio':   'studio',
+  'retail-products': 'boutique',
+  'gallery':         'lounge',
+  'table-qr':        'location',
+};
+
+function getPageIdFromHash() {
+  const raw = (location.hash || '#home').replace('#', '').toLowerCase();
+  return PAGE_MAP[raw] || 'home';
+}
+
+function navigateToPage(pageId) {
+  const allPages = document.querySelectorAll('.page-view');
+  if (!allPages.length) return; // SPA containers not present
+
+  allPages.forEach(p => {
+    if (p.dataset.page === pageId) {
+      p.classList.add('active');
+    } else {
+      p.classList.remove('active');
+    }
+  });
+
+  // Update desktop nav active link
+  document.querySelectorAll('.nav-link[data-target]').forEach(a => {
+    a.classList.toggle('active', a.dataset.target === pageId);
+  });
+
+  // Update mobile drawer active link
+  document.querySelectorAll('.drawer-link[data-target]').forEach(a => {
+    a.classList.toggle('active', a.dataset.target === pageId);
+  });
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Re-init map if navigating to location
+  if (pageId === 'location') {
+    setTimeout(initLeafletMap, 120);
+  }
+}
+
+function initSPARouter() {
+  // Handle all nav-link and drawer-link clicks
+  document.addEventListener('click', e => {
+    const link = e.target.closest('[data-target]');
+    if (!link) return;
+
+    const pageId = link.dataset.target;
+    if (!pageId) return;
+
+    e.preventDefault();
+    history.pushState(null, '', '#' + pageId);
+    navigateToPage(pageId);
+    closeDrawer();
+  });
+
+  // Handle hash changes (browser back/forward)
+  window.addEventListener('hashchange', () => {
+    navigateToPage(getPageIdFromHash());
+  });
+
+  // Initial load
+  navigateToPage(getPageIdFromHash());
+}
+
+// ══════════════════════════════════════════════════════════
+// 11. MOBILE DRAWER
+// ══════════════════════════════════════════════════════════
+
+function openDrawer() {
+  const drawer  = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('mobile-drawer-overlay');
+  const btn     = document.getElementById('mobile-menu-btn');
+  const ham     = btn ? btn.querySelector('.hamburger-icon') : null;
+  const cls     = btn ? btn.querySelector('.close-icon') : null;
+
+  if (drawer)  drawer.classList.add('open');
+  if (overlay) {
+    overlay.style.display = 'block';
+    requestAnimationFrame(() => overlay.classList.add('open'));
+  }
+  if (ham) ham.style.display = 'none';
+  if (cls) cls.style.display = '';
+  if (btn) btn.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  const drawer  = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('mobile-drawer-overlay');
+  const btn     = document.getElementById('mobile-menu-btn');
+  const ham     = btn ? btn.querySelector('.hamburger-icon') : null;
+  const cls     = btn ? btn.querySelector('.close-icon') : null;
+
+  if (drawer)  drawer.classList.remove('open');
+  if (overlay) {
+    overlay.classList.remove('open');
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+  }
+  if (ham) ham.style.display = '';
+  if (cls) cls.style.display = 'none';
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+function initMobileDrawer() {
+  const btn     = document.getElementById('mobile-menu-btn');
+  const closeBtn = document.getElementById('drawer-close-btn');
+  const overlay = document.getElementById('mobile-drawer-overlay');
+
+  if (btn)     btn.addEventListener('click', openDrawer);
+  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  if (overlay) overlay.addEventListener('click', closeDrawer);
+
+  // Close on ESC
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeDrawer();
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// 12. INITIALIZATION LIFECYCLE
 // ══════════════════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -953,35 +1095,22 @@ document.addEventListener('DOMContentLoaded', () => {
   initCategoryTabs();
   initStudioInteractions();
   initTableSelector();
-  initLeafletMap();
 
-  const mobBtn = document.getElementById('mobile-menu-btn');
-  const navLinks = document.querySelector('.nav-links');
-  if (mobBtn && navLinks) {
-    mobBtn.addEventListener('click', () => {
-      const isVisible = navLinks.style.display === 'flex';
-      navLinks.style.display = isVisible ? 'none' : 'flex';
-      if (!isVisible) {
-        navLinks.style.flexDirection = 'column';
-        navLinks.style.position = 'absolute';
-        navLinks.style.top = '100%';
-        navLinks.style.left = '0';
-        navLinks.style.right = '0';
-        navLinks.style.background = 'rgba(36, 17, 9, 0.98)';
-        navLinks.style.padding = '1.5rem';
-        navLinks.style.borderBottom = '1px solid var(--border-glow)';
-      }
-    });
+  // SPA router must run before map init (map only inits when location page is active)
+  initSPARouter();
+  initMobileDrawer();
+
+  // Only init map if location page is the starting page
+  if (getPageIdFromHash() === 'location') {
+    initLeafletMap();
   }
 
+  // Navbar scroll effect
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (nav) {
-      if (window.scrollY > 40) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
+      nav.classList.toggle('scrolled', window.scrollY > 40);
     }
   });
 });
+

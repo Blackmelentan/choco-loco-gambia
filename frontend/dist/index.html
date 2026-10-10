@@ -26,23 +26,23 @@
   <!-- Leaflet CSS for Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <!-- Custom Design System -->
-  <script type="module" crossorigin src="./assets/index-DhyzhY0U.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CMWSPBPP.css">
+  <!-- Custom Design System -->
+  <script type="module" crossorigin src="./assets/index-g6QMTzA8.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Cu8pUXx1.css">
 </head>
 <body>
 
   <!-- Ambient Golden Cacao Sparkle Canvas -->
   <canvas id="ambient-canvas"></canvas>
 
-  <!-- TOP ANNOUNCEMENT BAR (NO EMOJIS, NO DASHES) -->
+  <!-- TOP ANNOUNCEMENT BAR COMPACT -->
   <div id="announcement-bar">
     <div class="announcement-inner">
       <span id="live-status-pill" class="live-status-pill">
-        <span class="pulse-dot"></span> OPEN NOW &middot; Closes 11:00 PM
+        <span class="pulse-dot"></span><span class="status-open-label">OPEN NOW</span><span class="status-close-time"> &middot; Closes 11:00 PM</span>
       </span>
-      <span id="announcement-text">
-        Welcome to Choco Loco : Artisan Belgian Callebaut chocolate, signature waffles and luxury patisserie in Pipeline!
+      <span id="announcement-text" class="announcement-text-desktop">
+        Artisan Belgian Callebaut chocolate, waffles and luxury patisserie in Pipeline!
       </span>
     </div>
     <div class="announcement-contacts">
@@ -50,7 +50,7 @@
         <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
         <span>+220 400 0060</span>
       </a>
-      <a href="https://www.instagram.com/chocoloco_gmb/" target="_blank" rel="noopener" class="top-contact-link">
+      <a href="https://www.instagram.com/chocoloco_gmb/" target="_blank" rel="noopener" class="top-contact-link top-ig-link">
         <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         <span>@chocoloco_gmb</span>
       </a>
@@ -60,39 +60,68 @@
   <!-- MAIN NAVBAR -->
   <nav id="navbar">
     <div class="container nav-inner">
-      <a href="#hero" class="nav-brand">
+      <a href="#home" class="nav-brand" id="nav-brand-link">
         <!-- Real Official Dripping Logo (Luminous 24K Gold Amber Edition) -->
         <img src="./assets/real_choco_loco_logo_gold.png" alt="Choco Loco Patisserie | Café | Lounge" class="nav-brand-logo" />
       </a>
 
-      <ul class="nav-links">
-        <li><a href="#hero" class="active">Home</a></li>
-        <li><a href="#about">Story</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#custom-studio">Studio</a></li>
-        <li><a href="#retail-products">Boutique</a></li>
-        <li><a href="#gallery">Lounge</a></li>
-        <li><a href="#bookings">Bookings</a></li>
-        <li><a href="#catering">Catering</a></li>
-        <li><a href="#location">Location</a></li>
+      <ul class="nav-links" id="desktop-nav-links">
+        <li><a href="#home" class="nav-link active" data-target="home">Home</a></li>
+        
+        <li><a href="#menu" class="nav-link" data-target="menu">Menu</a></li>
+        <li><a href="#studio" class="nav-link" data-target="studio">Studio</a></li>
+        <li><a href="#boutique" class="nav-link" data-target="boutique">Boutique</a></li>
+        <li><a href="#lounge" class="nav-link" data-target="lounge">Lounge</a></li>
+        <li><a href="#bookings" class="nav-link" data-target="bookings">Bookings</a></li>
+        <li><a href="#catering" class="nav-link" data-target="catering">Catering</a></li>
+        <li><a href="#about" class="nav-link" data-target="about">About</a></li>
+        <li><a href="#location" class="nav-link" data-target="location">Location</a></li>
       </ul>
 
       <div class="nav-actions">
         <a href="tel:+2204000060" class="btn-outline nav-btn">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
-          <span>Call Now</span>
+          <span>Call</span>
         </a>
-        <a href="https://wa.me/2204000060" target="_blank" rel="noopener" class="btn-primary btn-whatsapp nav-btn">
+        <a href="https://wa.me/2204000060" target="_blank" rel="noopener" class="btn-whatsapp nav-btn nav-wa-btn">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
           <span>WhatsApp</span>
         </a>
-        <button class="mobile-nav-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+        <button class="mobile-nav-toggle" id="mobile-menu-btn" aria-label="Toggle navigation" aria-expanded="false">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
         </button>
       </div>
     </div>
   </nav>
+  <!-- MOBILE DRAWER OVERLAY -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
+  <!-- MOBILE SIDE DRAWER -->
+  <div id="mobile-drawer" class="mobile-drawer" role="dialog" aria-label="Navigation menu">
+    <div class="mobile-drawer-header">
+      <img src="./assets/real_choco_loco_logo_gold.png" alt="Choco Loco" class="drawer-logo" />
+      <button class="mobile-drawer-close" id="drawer-close-btn" aria-label="Close menu">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-drawer-nav">
+      <a href="#home" class="drawer-link active" data-target="home"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
+      <a href="#menu" class="drawer-link" data-target="menu"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>Menu</a>
+      <a href="#studio" class="drawer-link" data-target="studio"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Studio</a>
+      <a href="#boutique" class="drawer-link" data-target="boutique"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm0 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>Boutique</a>
+      <a href="#lounge" class="drawer-link" data-target="lounge"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"/></svg>Lounge</a>
+      <a href="#bookings" class="drawer-link" data-target="bookings"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>Bookings</a>
+      <a href="#catering" class="drawer-link" data-target="catering"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V1h-1.97v4.05h-4.97l.3 2.34c1.71.47 3.31 1.32 4.27 2.26 1.44 1.42 2.43 2.89 2.43 5.29v8.05zM1 21.99V21h15.03v.99c0 .55-.45 1-1.01 1H2.01c-.56 0-1.01-.45-1.01-1zm15.03-7c0-2.26-2.71-3.59-6.17-3.59S4.69 12.73 4.69 14.99v1H16.03v-1z"/></svg>Catering</a>
+      <a href="#about" class="drawer-link" data-target="about"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>About</a>
+      <a href="#location" class="drawer-link" data-target="location"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>Location</a>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <a href="tel:+2204000060" class="drawer-cta-btn"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>+220 400 0060</a>
+      <a href="https://wa.me/2204000060" target="_blank" rel="noopener" class="drawer-cta-btn drawer-wa-btn"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.961.948 2.791.948 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.734-5.768-5.734zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.242l-5.179 1.355 1.381-5.048c-.896-1.492-1.381-3.218-1.381-5.065 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>WhatsApp Order</a>
+    </div>
+  </div>
 
+  <!-- PAGE: HOME -->
+  <div data-page="home" class="page-view active">
   <!-- HERO SECTION -->
   <section id="hero">
     <div class="hero-glow-orb-1"></div>
@@ -201,7 +230,10 @@
       </div>
     </div>
   </div>
+  </div><!-- end page:home -->
 
+  <!-- PAGE: ABOUT -->
+  <div data-page="about" class="page-view">
   <!-- ABOUT US / OUR STORY -->
   <section id="about">
     <div class="container">
@@ -273,7 +305,10 @@
       </div>
     </div>
   </section>
+  </div><!-- end page:about -->
 
+  <!-- PAGE: MENU -->
+  <div data-page="menu" class="page-view">
   <!-- DIGITAL MENU SECTION -->
   <section id="menu">
     <div class="container">
@@ -310,7 +345,11 @@
   </section>
 
   <!-- INTERACTIVE BUILD YOUR OWN DESSERT STUDIO -->
-  <section id="custom-studio">
+  </div><!-- end page:menu -->
+
+  <!-- PAGE: STUDIO -->
+  <div data-page="studio" class="page-view">
+<section id="custom-studio">
     <div class="container">
       <div class="section-header-center">
         <div class="section-label">
@@ -470,7 +509,10 @@
       </div>
     </div>
   </section>
+  </div><!-- end page:studio -->
 
+  <!-- PAGE: BOUTIQUE -->
+  <div data-page="boutique" class="page-view">
   <!-- RETAIL PRODUCTS CATALOG SECTION -->
   <section id="retail-products">
     <div class="container">
@@ -577,7 +619,11 @@
   </section>
 
   <!-- REAL ATMOSPHERE AND SOCIAL GALLERY -->
-  <section id="gallery">
+  </div><!-- end page:boutique -->
+
+  <!-- PAGE: LOUNGE -->
+  <div data-page="lounge" class="page-view">
+<section id="gallery">
     <div class="container">
       <div class="section-header-center">
         <div class="section-label">
@@ -699,7 +745,10 @@
       </div>
     </div>
   </section>
+  </div><!-- end page:lounge -->
 
+  <!-- PAGE: BOOKINGS -->
+  <div data-page="bookings" class="page-view">
   <!-- BOOKINGS AND TABLE RESERVATIONS SECTION -->
   <section id="bookings">
     <div class="container">
@@ -834,7 +883,10 @@
       </div>
     </div>
   </section>
+  </div><!-- end page:bookings -->
 
+  <!-- PAGE: CATERING -->
+  <div data-page="catering" class="page-view">
   <!-- CATERING AND VIP EVENTS SECTION -->
   <section id="catering">
     <div class="container">
@@ -953,7 +1005,10 @@
       </div>
     </div>
   </section>
+  </div><!-- end page:catering -->
 
+  <!-- PAGE: LOCATION -->
+  <div data-page="location" class="page-view">
   <!-- LOCATION AND LEAFLET MAP SECTION -->
   <section id="location">
     <div class="container">
@@ -1061,6 +1116,7 @@
       </div>
     </div>
   </section>
+  </div><!-- end page:location -->
 
   <!-- ADMIN AND PWA MODAL (NO EMOJIS, NO DASHES) -->
   <div id="admin-modal">
@@ -1350,15 +1406,15 @@
         <div>
           <h4 class="footer-heading">Quick Navigation</h4>
           <ul class="footer-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">Story</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#custom-studio">Studio</a></li>
-            <li><a href="#retail-products">Boutique</a></li>
-            <li><a href="#gallery">Lounge</a></li>
-            <li><a href="#bookings">Bookings</a></li>
-            <li><a href="#catering">Catering</a></li>
-            <li><a href="#location">Location</a></li>
+            <li><a href="#home" class="nav-link" data-target="home">Home</a></li>
+            <li><a href="#menu" class="nav-link" data-target="menu">Menu</a></li>
+            <li><a href="#studio" class="nav-link" data-target="studio">Studio</a></li>
+            <li><a href="#boutique" class="nav-link" data-target="boutique">Boutique</a></li>
+            <li><a href="#lounge" class="nav-link" data-target="lounge">Lounge</a></li>
+            <li><a href="#bookings" class="nav-link" data-target="bookings">Bookings</a></li>
+            <li><a href="#catering" class="nav-link" data-target="catering">Catering</a></li>
+            <li><a href="#about" class="nav-link" data-target="about">About</a></li>
+            <li><a href="#location" class="nav-link" data-target="location">Location</a></li>
           </ul>
         </div>
 
@@ -1424,6 +1480,6 @@
   <!-- Leaflet JS for Map -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   
-  <!-- Main Application Logic & Supabase Integration -->
+  <!-- Main Application Logic & Supabase Integration -->
 </body>
 </html>
